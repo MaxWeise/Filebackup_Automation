@@ -15,10 +15,12 @@ from distutils.dir_util import copy_tree
 class File_Backup(object):
     """ Backup all files / directories in specified root dir to a specified destination
         
-        @params root: str - root directory
-                destination: str - copy to destination
+        @params 
+            root: str - root directory
+            destination: str - copy to destination
 
-        @author Max Weise
+        @author 
+            Max Weise
     """
     def __init__(self, root: str, destination: str):
         self.root = root
@@ -33,10 +35,12 @@ class File_Backup(object):
 class Filetype_backup(File_Backup):
     """ Can be used to backup files with user specific filetypes
         
-        @params root: str -  rootdirectory 
-                file_types: list -  filetypes to backup
+        @params 
+            root: str -  rootdirectory 
+            file_types: list -  filetypes to backup
 
-        @author Max Weise
+        @author 
+            Max Weise
     """ 
     def __init__(self, root: str, destination: str,  file_types: list):
         super().__init__(root, destination)
@@ -65,8 +69,11 @@ class Filetype_backup(File_Backup):
 class Garbage_Collector(object):
     """ Remove the dump directory created by Filetype_Backup
         
-        @params O: object - Filebackup object creating a dump directory
-        @author Max Weise
+        @params 
+            O: object - Filebackup object creating a dump directory
+        
+        @author 
+            Max Weise
     """
     def __init__(self, O: File_Backup):
         self.dump_dir = O.get_dump_dir()
