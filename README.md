@@ -6,4 +6,9 @@ Automatic file backup to simplify the process of saving all relevant data
 ## TODO:
 
 * Fix Docstrings
-* Implement user help if command is not correct 
+* Implement user help if command is not correct
+* Option to abort garbage collection
+    * safe path?
+    * safe state of programm after termination?
+
+
