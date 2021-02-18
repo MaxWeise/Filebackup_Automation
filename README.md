@@ -11,4 +11,6 @@ Automatic file backup to simplify the process of saving all relevant data
     * safe path?
     * safe state of programm after termination?
 
-
+## IDEA:
+* Create UI using TKInter
+* Safe script in home directory or other fixed point of reference

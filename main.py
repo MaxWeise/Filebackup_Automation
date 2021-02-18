@@ -3,7 +3,7 @@ Automatically backup files
 
 
 Created on: 27.01.2021
-Last revision: 17.02.2021
+Last revision: 18.02.2021
 @author: Max Weise
 """
 
@@ -30,10 +30,14 @@ def main():
             g = Garbage_Collector(o)
             print(o)
             o.dump_files()
-            print(g)
-            g.collect_garbage
-            o.backup_tree()
 
+            if (garbage_collection := input(f'Confirm deleting {g.dump_dir} (Y/N):\n>>> ')) == 'Y':
+                print(g)
+                g.collect_garbage
+                o.backup_tree()
+            
+            print(f'The directory {o.root} has not been copied')
+            # Save location to backup later
         else:
             print(f'ERROR: I dont know the command {descition}, please try again\n')
 
