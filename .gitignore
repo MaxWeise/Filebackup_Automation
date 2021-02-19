@@ -130,3 +130,4 @@ dmypy.json
 
 # === Specific files ===
 notes.txt
+json_safe_logs/

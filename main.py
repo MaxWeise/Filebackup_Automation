@@ -1,6 +1,4 @@
-"""
-Automatically backup files
-
+""" Automatically backup files
 
 Created on: 27.01.2021
 Last revision: 18.02.2021
@@ -31,7 +29,7 @@ def main():
             print(o)
             o.dump_files()
 
-            if (garbage_collection := input(f'Confirm deleting {g.dump_dir} (Y/N):\n>>> ')) == 'Y':
+            if input(f'Confirm deleting {g.dump_dir} (Y/N):\n>>> ') == 'Y':
                 print(g)
                 g.collect_garbage
                 o.backup_tree()
@@ -41,6 +39,9 @@ def main():
         else:
             print(f'ERROR: I dont know the command {descition}, please try again\n')
 
+def test():
+    pass
 
 if __name__ == '__main__':
-    main()
+    # main()
+    test()
