@@ -9,13 +9,14 @@ from os import getcwd, mkdir, path
 
 class JSON_File_Manager(object):
     """ Manage JSON safelogs to determine which paths had a aborted backup
-
+        
+        @params
         @author
             Max Weise
     """
-
-    def __init__(self, root):
-        self.root = root
+    """ Path to directory"""
+    def __init__(self):
+#        self.root = root # ? Whatfor
         self.__date_of_creation = date.today()
         self.__safe_path = path.join(getcwd(), 'json_safe_logs')  # Remember FileExistsError
 
