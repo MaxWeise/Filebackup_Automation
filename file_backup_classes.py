@@ -23,13 +23,16 @@ class File_Backup(object):
             Max Weise
     """
     def __init__(self, root: str, destination: str):
+        """Initialize File_Backup object by giving it a rootdirectory to copy from and a destination to copy to. """
         self.root = root
         self.dest = destination
 
     def backup_tree(self) -> None:
+        """Copy recursivly from self.root to self.dest. """
         copy_tree(self.root, self.dest)
 
     def __str__(self) -> str:
+        """Print a humanly readable representation to the console. """
         return f'Backing up {self.root} into {self.dest}'
         
 class Filetype_backup(File_Backup):
@@ -43,14 +46,17 @@ class Filetype_backup(File_Backup):
             Max Weise
     """ 
     def __init__(self, root: str, destination: str,  file_types: list):
+        """Initialize Filetype_backup object by giving root and dest to superconstructor and specifing a list of filetypes to backup."""
         super().__init__(root, destination)
         self.file_list = file_types
         self.dump_dir = path.join(root, 'auxiliary_files')
     
     def get_dump_dir(self) -> str:
+        """Return the path to dump_dir. """
         return self.dump_dir
     
     def dump_files(self) -> None:
+        """Move unwanted filetypes to a directory which later gets deleted by a garbage collector. """
         try:
             mkdir(self.dump_dir)
         except FileExistsError:
@@ -64,6 +70,7 @@ class Filetype_backup(File_Backup):
                     shutil.move(path.join(root, name), self.dump_dir)
     # override
     def __str__(self) -> str:
+        """Print a humanly readable representation to the console. """
         return f'Backing up {self.root} into {self.dest} using these filetypes: {self.file_list}'
 
 class Garbage_Collector(object):
@@ -76,12 +83,15 @@ class Garbage_Collector(object):
             Max Weise
     """
     def __init__(self, O: File_Backup):
+        """Initialise a Garbage_collection object by giving a object which produces 'garbage'."""
         self.dump_dir = O.get_dump_dir()
 
     def collect_garbage(self) -> None:
+        """Remove the dump_dir created by File_Backup object. """
         shutil.rmtree(self.dump_dir)
 
     def __str__(self) -> str:
+        """Print a humanly readable representation to the console. """
         return f'Cleaning up {self.dump_dir}'
 
 def test():

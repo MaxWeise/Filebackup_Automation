@@ -19,6 +19,7 @@ class JSON_File_Manager(object):
     """
 
     def __init__(self, current_working_path):
+        """Initialise a json_file_manager object and specifing the directory which is currently worked on. """
         self.__safe_folder_name = 'json_safe_logs'
         self.__current_working_path = current_working_path
         self.__date_of_creation = date.today()
@@ -32,15 +33,19 @@ class JSON_File_Manager(object):
 
     # Getter
     def get_date_of_creation(self) -> date:
+        """Return the date of creaton in the format YYYY.MM.DD . """
         return self.__date_of_creation
 
     def get_current_working_path(self) -> str:
+        """Return the directory which is currently worked on. """
         return self.__current_working_path
 
     def get_backup_location(self) -> str:
+        """Retunr the location in which json files get safed. """
         return self.__backup_location
 
     def safe_to_json(self, reason: str) -> str:
+        """Collect necessary data and return it as json-string. """
         safe_stats = {
             'path' : self.get_current_working_path(),
             'date' : str(self.get_date_of_creation()),
@@ -50,9 +55,11 @@ class JSON_File_Manager(object):
         return json.dumps(safe_stats)
 
     def load_from_json(self, safed_json_sring: str) -> dict:
+        """Convert a json-string and return it as dictionary. """
         return json.loads(safed_json_sring)
 
     def write_file(self, json_to_safe: str) -> None:
+        """Write a given json-string to a json file. """
         safe_location = self.get_backup_location()
         name = str(self.get_date_of_creation()) + '_log.json'
         try:
@@ -64,9 +71,12 @@ class JSON_File_Manager(object):
             f.close()
 
     def read_file(self) -> str:
+        """Read a file and return its content as json-string. """
         pass
         
+    # override
     def __str__(self):
+        """Print a humanly readable representation to the console. """
         return f'cwd : {self.__current_working_path}'
 
 def test():

@@ -10,6 +10,7 @@ Automatic file backup to simplify the process of saving all relevant data
 * Option to abort garbage collection
     * safe path?
     * safe state of programm after termination?
+    * check for json safes before new programm execution
 
 ## IDEA:
 * Create UI using TKInter
