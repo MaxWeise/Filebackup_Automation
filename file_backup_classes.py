@@ -2,7 +2,7 @@
     Only keep files of type tex, sty, txt, toc, (pdf)
 
 Created: 15.02.2021
-Last revision: 17.02.2021
+Last revision: 25.02.2021
 @author: Max Weise
 """
 
@@ -26,10 +26,10 @@ class File_Backup(object):
         self.root = root
         self.dest = destination
 
-    def backup_tree(self):
+    def backup_tree(self) -> None:
         copy_tree(self.root, self.dest)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'Backing up {self.root} into {self.dest}'
         
 class Filetype_backup(File_Backup):
@@ -50,7 +50,7 @@ class Filetype_backup(File_Backup):
     def get_dump_dir(self) -> str:
         return self.dump_dir
     
-    def dump_files(self):
+    def dump_files(self) -> None:
         try:
             mkdir(self.dump_dir)
         except FileExistsError:
@@ -63,7 +63,7 @@ class Filetype_backup(File_Backup):
                 if name[-3:] not in self.file_list:
                     shutil.move(path.join(root, name), self.dump_dir)
     # override
-    def __str__(self):
+    def __str__(self) -> str:
         return f'Backing up {self.root} into {self.dest} using these filetypes: {self.file_list}'
 
 class Garbage_Collector(object):
@@ -78,10 +78,10 @@ class Garbage_Collector(object):
     def __init__(self, O: File_Backup):
         self.dump_dir = O.get_dump_dir()
 
-    def collect_garbage(self):
+    def collect_garbage(self) -> None:
         shutil.rmtree(self.dump_dir)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'Cleaning up {self.dump_dir}'
 
 def test():

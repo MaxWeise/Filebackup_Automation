@@ -1,7 +1,7 @@
 """ Create JSON safelogs to keep track of paths not being backed up or cleaned
 
 Created on: 18.02.2021
-Last revision: 24.02.2021
+Last revision: 25.02.2021
 @author: Max Weise
 """
 import json
@@ -31,13 +31,13 @@ class JSON_File_Manager(object):
             print(e)
 
     # Getter
-    def get_date_of_creation(self):
+    def get_date_of_creation(self) -> date:
         return self.__date_of_creation
 
-    def get_current_working_path(self):
+    def get_current_working_path(self) -> str:
         return self.__current_working_path
 
-    def get_backup_location(self):
+    def get_backup_location(self) -> str:
         return self.__backup_location
 
     def safe_to_json(self, reason: str) -> str:
@@ -52,7 +52,7 @@ class JSON_File_Manager(object):
     def load_from_json(self, safed_json_sring: str) -> dict:
         return json.loads(safed_json_sring)
 
-    def write_file(self, json_to_safe: str):
+    def write_file(self, json_to_safe: str) -> None:
         safe_location = self.get_backup_location()
         name = str(self.get_date_of_creation()) + '_log.json'
         try:
@@ -63,15 +63,14 @@ class JSON_File_Manager(object):
         finally:
             f.close()
 
-    def read_file(self):
+    def read_file(self) -> str:
         pass
         
     def __str__(self):
         return f'cwd : {self.__current_working_path}'
 
 def test():
-    j = JSON_File_Manager(getcwd())
-    j.write_file(j.safe_to_json('test_reason'))
+    pass
 
 if __name__ == '__main__':
     test()
