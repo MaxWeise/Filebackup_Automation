@@ -1,7 +1,7 @@
 """ Automatically backup files
 
 Created on: 27.01.2021
-Last revision: 18.02.2021
+Last revision: 25.02.2021
 @author: Max Weise
 """
 
@@ -33,6 +33,8 @@ def main():
                 print(g)
                 g.collect_garbage
                 o.backup_tree()
+            else:
+                pass # safe necessary data and continue as usual
             
             print(f'The directory {o.root} has not been copied')
             # Save location to backup later
