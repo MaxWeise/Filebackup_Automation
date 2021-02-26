@@ -1,16 +1,18 @@
-""" Lib to backup the LaTeX tree
-    Only keep files of type tex, sty, txt, toc, (pdf)
+""" Module to copy a directory recursivly, either everything or only specific filetypes.
+    In both cases, the structure of the directory will be keept.
 
 Created: 15.02.2021
-Last revision: 25.02.2021
+Last revision: 26.02.2021
 @author: Max Weise
 """
+
+# NOTE: Inner classes is a thing in python. To call method from inner class use outer().Inner().method()
 
 import os
 import shutil
 
-from os import getcwd, mkdir, path, rename
 from distutils.dir_util import copy_tree
+from os import getcwd, mkdir, path, rename
 
 class File_Backup(object):
     """ Backup all files / directories in specified root dir to a specified destination
@@ -35,7 +37,7 @@ class File_Backup(object):
         """Print a humanly readable representation to the console. """
         return f'Backing up {self.root} into {self.dest}'
         
-class Filetype_backup(File_Backup):
+class Filetype_Backup(File_Backup):
     """ Can be used to backup files with user specific filetypes
         
         @params 
@@ -50,6 +52,7 @@ class Filetype_backup(File_Backup):
         super().__init__(root, destination)
         self.file_list = file_types
         self.dump_dir = path.join(root, 'auxiliary_files')
+        self.garbage_collector = Garbage_Collector(self.dump_dir)
     
     def get_dump_dir(self) -> str:
         """Return the path to dump_dir. """
@@ -82,9 +85,9 @@ class Garbage_Collector(object):
         @author 
             Max Weise
     """
-    def __init__(self, O: File_Backup):
+    def __init__(self, dump_dir: str):
         """Initialise a Garbage_collection object by giving a object which produces 'garbage'."""
-        self.dump_dir = O.get_dump_dir()
+        self.dump_dir = dump_dir
 
     def collect_garbage(self) -> None:
         """Remove the dump_dir created by File_Backup object. """
@@ -94,9 +97,10 @@ class Garbage_Collector(object):
         """Print a humanly readable representation to the console. """
         return f'Cleaning up {self.dump_dir}'
 
-def test():
-    # Test code here
-    pass
+def msg():
+    print('This module is not suposed to be run as a main module')
+    print('To debugg, please run the <test.py> module')
+
 
 if __name__ == '__main__':
-    test()
+    msg()

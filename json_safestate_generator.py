@@ -18,7 +18,6 @@ class JSON_File_Manager(object):
         @author
             Max Weise
     """
-
     def __init__(self, current_working_path):
         """Initialise a json_file_manager object and specifing the directory which is currently worked on. """
         self.__safe_folder_name = 'json_safe_logs'
@@ -35,7 +34,7 @@ class JSON_File_Manager(object):
 
     # Getter
     def get_date_of_creation(self) -> date:
-        """Return the date of creaton in the format YYYY.MM.DD """
+        """Return the date of creaton in the format YYYY-MM-DD_HH-MM-SS """
         return self.__date_of_creation
 
     def get_current_working_path(self) -> str:
@@ -46,7 +45,7 @@ class JSON_File_Manager(object):
         """Return the location in which json files get safed. """
         return self.__backup_location
     
-    def get_files_in_backup_dir(self):
+    def get_files_in_backup_dir(self) -> list:
         """Return a list of all files in the backupdirectory. """
         return [f for f in listdir(self.get_backup_location()) if path.isfile(path.join(self.get_backup_location(), f))]
 
