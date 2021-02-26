@@ -5,6 +5,7 @@ Last revision: 26.02.2021
 @author: Max Weise
 """
 import json
+import datetime
 
 from datetime import date
 from os import getcwd, mkdir, path, listdir
@@ -22,7 +23,8 @@ class JSON_File_Manager(object):
         """Initialise a json_file_manager object and specifing the directory which is currently worked on. """
         self.__safe_folder_name = 'json_safe_logs'
         self.__current_working_path = current_working_path
-        self.__date_of_creation = date.today()
+        date = datetime.datetime.now()
+        self.__date_of_creation = str(date)[:10] + '_' + (date.strftime('%X')).replace(':', '-')
         self.__backup_location = path.join(getcwd(), self.__safe_folder_name)
         try:    # Create a directory to story json safe logs
             mkdir(self.__safe_folder_name)
@@ -33,7 +35,7 @@ class JSON_File_Manager(object):
 
     # Getter
     def get_date_of_creation(self) -> date:
-        """Return the date of creaton in the format YYYY.MM.DD . """
+        """Return the date of creaton in the format YYYY.MM.DD """
         return self.__date_of_creation
 
     def get_current_working_path(self) -> str:
@@ -71,14 +73,16 @@ class JSON_File_Manager(object):
                 f.write(json_to_safe)
         except Exception as e:
             print(e)
-        finally:
-            f.close()
 
     def read_file(self, file_to_read) -> str:
         """Read a file and return its content as json-string. """
         content = ''
-        with open(file_to_read, "r") as f:
-           content = f.readline()
+        try:
+            with open(file_to_read, "r") as f:
+                content = f.readline()
+        except Exception as e:
+            print(e)
+
         return content
 
     # override
@@ -86,13 +90,10 @@ class JSON_File_Manager(object):
         """Print a humanly readable representation to the console. """
         return f'cwd : {self.__current_working_path}'
 
-def test():
-    j = JSON_File_Manager('test')
-    l = j.get_files_in_backup_dir()
-    p = j.get_backup_location()
-    for _ in l:
-        d = j.load_from_json(j.read_file(path.join(p, _)))
-        print(d['reason for aboartion'])
+def msg():
+    print('This module is not suposed to be run as a main module')
+    print('To debugg, please run the <test.py> module')
+
 
 if __name__ == '__main__':
-    test()
+    msg()
