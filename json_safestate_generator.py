@@ -1,13 +1,13 @@
 """ Create JSON safelogs to keep track of paths not being backed up or cleaned
 
 Created on: 18.02.2021
-Last revision: 25.02.2021
+Last revision: 26.02.2021
 @author: Max Weise
 """
 import json
 
 from datetime import date
-from os import getcwd, mkdir, path
+from os import getcwd, mkdir, path, listdir
 
 class JSON_File_Manager(object):
     """ Manage JSON safelogs to determine which paths had a aborted backup
@@ -23,11 +23,11 @@ class JSON_File_Manager(object):
         self.__safe_folder_name = 'json_safe_logs'
         self.__current_working_path = current_working_path
         self.__date_of_creation = date.today()
-        self.__backup_location = getcwd() + self.__safe_folder_name
+        self.__backup_location = path.join(getcwd(), self.__safe_folder_name)
         try:    # Create a directory to story json safe logs
             mkdir(self.__safe_folder_name)
         except FileExistsError:
-            print('Path allready exists, proceed as normal\n')
+            print('Backupdirectory allready exists, proceed as normal\n')
         except Exception as e:
             print(e)
 
@@ -41,8 +41,12 @@ class JSON_File_Manager(object):
         return self.__current_working_path
 
     def get_backup_location(self) -> str:
-        """Retunr the location in which json files get safed. """
+        """Return the location in which json files get safed. """
         return self.__backup_location
+    
+    def get_files_in_backup_dir(self):
+        """Return a list of all files in the backupdirectory. """
+        return [f for f in listdir(self.get_backup_location()) if path.isfile(path.join(self.get_backup_location(), f))]
 
     def safe_to_json(self, reason: str) -> str:
         """Collect necessary data and return it as json-string. """
@@ -63,24 +67,32 @@ class JSON_File_Manager(object):
         safe_location = self.get_backup_location()
         name = str(self.get_date_of_creation()) + '_log.json'
         try:
-            f = open(path.join(self.__safe_folder_name, name), "w")
-            f.write(json_to_safe)
+            with open(path.join(self.__safe_folder_name, name), "w") as f:
+                f.write(json_to_safe)
         except Exception as e:
             print(e)
         finally:
             f.close()
 
-    def read_file(self) -> str:
+    def read_file(self, file_to_read) -> str:
         """Read a file and return its content as json-string. """
-        pass
-        
+        content = ''
+        with open(file_to_read, "r") as f:
+           content = f.readline()
+        return content
+
     # override
     def __str__(self):
         """Print a humanly readable representation to the console. """
         return f'cwd : {self.__current_working_path}'
 
 def test():
-    pass
+    j = JSON_File_Manager('test')
+    l = j.get_files_in_backup_dir()
+    p = j.get_backup_location()
+    for _ in l:
+        d = j.load_from_json(j.read_file(path.join(p, _)))
+        print(d['reason for aboartion'])
 
 if __name__ == '__main__':
     test()
