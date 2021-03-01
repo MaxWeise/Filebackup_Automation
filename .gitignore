@@ -130,7 +130,8 @@ dmypy.json
 
 # === Specific files / folders ===
 test.py
-test_dir
+test_root
 test_dest
 notes.txt
 json_safe_logs/
+templates

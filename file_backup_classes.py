@@ -2,11 +2,9 @@
     In both cases, the structure of the directory will be keept.
 
 Created: 15.02.2021
-Last revision: 26.02.2021
+Last revision: 01.03.2021
 @author: Max Weise
 """
-
-# NOTE: Inner classes is a thing in python. To call method from inner class use outer().Inner().method()
 
 import os
 import shutil
@@ -51,7 +49,7 @@ class Filetype_Backup(File_Backup):
         """Initialize Filetype_backup object by giving root and dest to superconstructor and specifing a list of filetypes to backup."""
         super().__init__(root, destination)
         self.file_list = file_types
-        self.dump_dir = path.join(root, 'auxiliary_files')
+        self.dump_dir = path.join(root, '.auxiliary_files')
         self.garbage_collector = Garbage_Collector(self.dump_dir)
     
     def get_dump_dir(self) -> str:
@@ -69,8 +67,12 @@ class Filetype_Backup(File_Backup):
 
         for root, _, files in os.walk(self.root):   # underscore '_' replaces iteration variable 'dir'
             for name in files:
-                if name[-3:] not in self.file_list:
-                    shutil.move(path.join(root, name), self.dump_dir)
+                try:
+                    if name[-3:] not in self.file_list: # NOTE: use split and look for the last element
+                        print(f'moving {path.join(root, name)} to {self.dump_dir}')
+                        shutil.move(path.join(root, name), self.dump_dir)
+                except Exception as e:
+                    print(e)                            # NOTE: Exclude the aux path from the recursive search
     # override
     def __str__(self) -> str:
         """Print a humanly readable representation to the console. """
