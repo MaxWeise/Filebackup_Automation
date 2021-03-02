@@ -135,3 +135,4 @@ test_dest
 notes.txt
 json_safe_logs/
 templates
+.dumped_files

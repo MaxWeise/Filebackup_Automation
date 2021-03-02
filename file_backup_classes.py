@@ -49,7 +49,7 @@ class Filetype_Backup(File_Backup):
         """Initialize Filetype_backup object by giving root and dest to superconstructor and specifing a list of filetypes to backup."""
         super().__init__(root, destination)
         self.file_list = file_types
-        self.dump_dir = path.join(root, '.auxiliary_files')
+        self.dump_dir = '.dumped_files'
         self.garbage_collector = Garbage_Collector(self.dump_dir)
     
     def get_dump_dir(self) -> str:
