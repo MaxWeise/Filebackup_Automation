@@ -5,6 +5,7 @@ Last revision: 01.03.2021
 @author: Max Weise
 """
 # TODO: Refactor code to improve readability and avoid code repetitions
+# TODO: Insert a try except block to recover from crashes (safe and load using json)
 
 from file_backup_classes import File_Backup, Filetype_Backup
 from json_safestate_generator import JSON_File_Manager
@@ -26,7 +27,7 @@ def main():
                 File_Backup_Instance.backup_tree()
     while (descition := input('>>> ')).lower() != 'x':
         if descition == 'file backup':
-            # Copy full tree of src to dst
+            # Copy full tree of src to dst | Backup full tree without requirements
             src = input('Please provide a source path:\n>>> ')
             dst = input('Please provide a destination path:\n>>> ')
 
@@ -34,7 +35,7 @@ def main():
             print(File_Backup_Instance)
             File_Backup_Instance.backup_tree()
         elif descition == 'file type backup':
-            # Copy specific files from scr to dst
+            # Copy specific files from scr to dst | Sort out unwanted files, delete them and copy the resulting tree
             src = input('Please provide a source path:\n>>> ')
             dst = input('Please provide a destination path:\n>>> ')
             fltyp = input('Please provide a list of filetypes (only letters, no "."):\n>>> ')
@@ -53,9 +54,5 @@ def main():
         else:
             print(f'ERROR: I dont know the command {descition}, please try again\n')
 
-def test():
-    pass
-
 if __name__ == '__main__':
     main()
-#    test()
