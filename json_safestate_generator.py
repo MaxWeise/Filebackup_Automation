@@ -1,7 +1,7 @@
 """ Create JSON safelogs to keep track of paths not being backed up or cleaned
 
 Created on: 18.02.2021
-Last revision: 01.03.2021
+Last revision: 03.03.2021
 @author: Max Weise
 """
 import json
@@ -53,12 +53,13 @@ class JSON_File_Manager(object):
     def set_current_working_path(self, new_path: str) -> None:
         self.__current_working_path = new_path
 
-    def safe_to_json(self, reason: str) -> str:
+    def safe_to_json(self, reason: str, backup_procedure=None) -> str:
         """Collect necessary data and return it as json-string. """
         safe_stats = {
             'path' : self.get_current_working_path(),
             'date' : str(self.get_date_of_creation()),
             'reason for aboartion' : reason,
+            'backup procedure' : backup_procedure,
         }
 
         return json.dumps(safe_stats)
