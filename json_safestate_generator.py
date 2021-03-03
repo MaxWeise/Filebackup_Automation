@@ -81,8 +81,9 @@ class JSON_File_Manager(object):
     def read_file(self, file_to_read) -> str:
         """Read a file and return its content as json-string. """
         content = ''
+        path_to_file = path.join(self.get_backup_location(), file_to_read)
         try:
-            with open(file_to_read, "r") as f:
+            with open(path_to_file, "r") as f:
                 content = f.readline()
         except Exception as e:
             print(e)
