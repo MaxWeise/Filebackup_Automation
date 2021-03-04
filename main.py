@@ -1,7 +1,7 @@
 """ Automatically backup files
 
 Created on: 27.01.2021
-Last revision: 03.03.2021
+Last revision: 04.03.2021
 @author: Max Weise
 """
 
@@ -62,25 +62,17 @@ def main():
         print('No json files found\n')
 
     # TODO: json cant handle the exception object
-    # try:
-    #     while (descition := input('>>> ')).lower() != 'x':
-    #         if descition == 'file backup':
-    #             f_file_backup()
-    #         elif descition == 'file type backup':
-    #             f_ftype_backup()
-    #         else:
-    #             print(f'ERROR: I dont know the command {descition}, please try again\n')
-    # except Exception as e:
-    #     j_manager.write_file(j_manager.safe_to_json(e, descition))
-
-    while (descition := input('>>> ')).lower() != 'x':
+    try:
+        while (descition := input('>>> ')).lower() != 'x':
             if descition == 'file backup':
                 f_file_backup()
             elif descition == 'file type backup':
                 f_ftype_backup()
             else:
                 print(f'ERROR: I dont know the command {descition}, please try again\n')
-    
+    except Exception as e:
+        j_manager.write_file(j_manager.safe_to_json(e.__str__(), descition))
+
     print('-- End of module --')
         
 
