@@ -61,7 +61,6 @@ def main():
     else:
         print('No json files found\n')
 
-    # TODO: json cant handle the exception object
     try:
         while (descition := input('>>> ')).lower() != 'x':
             if descition == 'file backup':
