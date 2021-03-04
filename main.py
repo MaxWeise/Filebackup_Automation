@@ -8,7 +8,7 @@ Last revision: 04.03.2021
 from file_backup_classes import File_Backup, Filetype_Backup
 from json_safestate_generator import JSON_File_Manager
 
-from os import listdir
+from os import path, listdir, remove
 
 def f_file_backup(src=None):
     # Copy full tree of src to dst | Backup full tree without requirements
@@ -50,14 +50,13 @@ def main():
         if (user_descition := input('There are directories with aboarted backup procedures. Resume these Procedures? (y/n)\n>>> ')) == 'y':
             loaded_safes = []
             for this in list_of_safed_files:
-                j = j_manager.load_from_json(j_manager.read_file(this))
-                loaded_safes.append(j)
-
-            for safestate in loaded_safes:
+                safestate = j_manager.load_from_json(j_manager.read_file(this))
                 if safestate['backup procedure'] == 'file type backup':
                     f_ftype_backup(safestate['path'])
                 elif safestate['backup procedure'] is None:
                     f_file_backup(safestate['path'])
+                path_to_file = path.join(j_manager.get_backup_location(), this)
+                remove(path_to_file)
     else:
         print('No json files found\n')
 
