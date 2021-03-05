@@ -5,8 +5,9 @@ Last revision: 04.03.2021
 @author: Max Weise
 """
 
-from file_backup_classes import File_Backup, Filetype_Backup
+from command_help import print_help_table
 from json_safestate_generator import JSON_File_Manager
+from file_backup_classes import File_Backup, Filetype_Backup
 
 from os import path, listdir, remove
 
@@ -50,13 +51,12 @@ def main():
         if (user_descition := input('There are directories with aboarted backup procedures. Resume these Procedures? (y/n)\n>>> ')) == 'y':
             loaded_safes = []
             for this in list_of_safed_files:
-                safestate = j_manager.load_from_json(j_manager.read_file(this))
+                safestate = j_manager.load_from_json(j_manager.read_file(this))     # get json string and parse it to a python dict
                 if safestate['backup procedure'] == 'file type backup':
                     f_ftype_backup(safestate['path'])
                 elif safestate['backup procedure'] is None:
                     f_file_backup(safestate['path'])
-                path_to_file = path.join(j_manager.get_backup_location(), this)
-                remove(path_to_file)
+                remove(path.join(j_manager.get_backup_location(), this))            # Remove json file after it was dealt with
     else:
         print('No json files found\n')
 
@@ -66,8 +66,11 @@ def main():
                 f_file_backup()
             elif descition == 'file type backup':
                 f_ftype_backup()
+            elif descition == 'help':
+                print_help_table()
             else:
                 print(f'ERROR: I dont know the command {descition}, please try again\n')
+                print('For more help, use the "help" command')
     except Exception as e:
         j_manager.write_file(j_manager.safe_to_json(e.__str__(), descition))
 
