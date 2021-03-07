@@ -1,7 +1,8 @@
 """ Automatically backup files
+    Execute in comand line interface
 
 Created on: 27.01.2021
-Last revision: 04.03.2021
+Last revision: 07.03.2021
 @author: Max Weise
 """
 
