@@ -11,7 +11,13 @@ from tkinter import ttk
 from tkinter.filedialog import askdirectory
 
 class GUI(object):
+    """ Initialize a GUI to facilitate the process of backing up files
+
+        @author:
+            Max Weise
+    """
     def __init__(self):
+        """ Initialize a GUI object""" 
         # Create a non resizable window
         self.root = Tk()
         self.root.title('Backup Automation')
@@ -100,20 +106,25 @@ class GUI(object):
             print('Incorrect Type, the type must be tuple')
 
     def open_src(self):
+        """ Open a filedialog to choose a source directory and set the attribute and labeltext accordingly."""
         self.set_source_path(askdirectory())
         self.display_source.set('Source : ' + self.get_source_path())
 
     def open_dst(self):
+        """ Open a filedialog to choose a destination directory and set the attribute and labeltext accordingly."""
         self.set_destin_path(askdirectory())
         self.display_destin.set('Destination : ' + self.get_destin_path())
 
     def stop_program(self):
+        """ Close the GUI window."""
         self.root.destroy()
 
     def start_procedure(self):
+        """ Set all the neccessary data and close the GUI window."""
         config_tupel = (self.get_source_path(), self.get_destin_path(), self.get_procedure())
         self.set_program_params(config_tupel)
         self.root.destroy()
 
     def run(self):
+        """ Run the GUI."""
         self.root.mainloop()
