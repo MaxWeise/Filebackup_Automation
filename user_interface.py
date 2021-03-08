@@ -2,18 +2,16 @@
     this script is executed in the gui_main.py file
 
 Created on: 06.03.2021
-Last Revision: 07.03.2021
+Last Revision: 08.03.2021
 @author: Max Weise
 """
 
 from tkinter import *
 from tkinter import ttk
+from tkinter.filedialog import askdirectory
 
 class GUI(object):
     def __init__(self):
-        # Global attrebutes
-        self.__left_margin = 20
-
         # Create a non resizable window
         self.root = Tk()
         self.root.title('Backup Automation')
@@ -22,48 +20,88 @@ class GUI(object):
         self.back = Frame(master=self.root)
         self.back.pack(padx=5, pady=5)
         
+        # Strings in labels
+        self.display_source = StringVar()
+        self.display_source.set('Source :')
+        self.display_destin = StringVar() 
+        self.display_destin.set('Destination :')
+
+        # Global attrebutes
+        self.__left_margin = 20
+        self.__procedure = StringVar()
+        self.__src_path = StringVar()
+        self.__dst_path = StringVar()
+
         # Labels
-        self.label1 = Label(self.root, text='Please provide a source and destination folder')
-        self.label1.place(x=self.__left_margin, y=5)
+        self.header1 = Label(self.root, text='Please provide a source and destination folder')
+        self.header1.place(x=self.__left_margin, y=5)
         
-        self.label2 = Label(self.root, text='Please choose backup procedure to backup your files')
-        self.label2.place(x=self.__left_margin, y=100)
+        self.header2 = Label(self.root, text='Please choose backup procedure to backup your files')
+        self.header2.place(x=self.__left_margin, y=100)
+
+        self.show_src_path = Label(self.root, textvariable=self.display_source)
+        self.show_src_path.place(x=80, y=30)
+
+        self.show_dst_path = Label(self.root, textvariable=self.display_destin)
+        self.show_dst_path.place(x=80, y=70)
+
         # Buttons
-        chose_src = Button(self.root, text='Browse')
-        chose_src.place(x=self.__left_margin, y=30)
-        
-        chose_dst = Button(self.root, text='Browse')
-        chose_dst.place(x=self.__left_margin, y=70)
-        
-        start_procedure = Button(self.root, text='Start')
-        start_procedure.place(x=self.__left_margin, y=150)
-        
-        cancle_button = Button(self.root, text='Cancle', command=self.cancle)
-        cancle_button.place(x=self.__left_margin + 80, y=150)
+        self.chose_src = Button(self.root, text='Browse', command=self.open_src)
+        self.chose_src.place(x=self.__left_margin, y=30)
 
-        # Textboxes
-        show_src_path = Text(self.root, height=1, width=50)
-        show_src_path.place(x=80, y=30)
+        self.chose_dst = Button(self.root, text='Browse', command=self.open_dst)
+        self.chose_dst.place(x=self.__left_margin, y=70)
 
-        show_dst_path = Text(self.root, height=1, width=50)
-        show_dst_path.place(x=80, y=70)
+        self.start_button = Button(self.root, text='Start', command=self.start_procedure)
+        self.start_button.place(x=self.__left_margin, y=150)
+
+        self.cancle_button = Button(self.root, text='Cancle', command=self.stop_program)
+        self.cancle_button.place(x=self.__left_margin + 80, y=150)
 
         # Radiobuttons
-        procedure = StringVar()
-        f_backup = ttk.Radiobutton(self.root, text='File Backup', variable=procedure, value='File Backup')
-        f_backup.place(x=self.__left_margin, y=120)
+        self.f_backup = ttk.Radiobutton(self.root, text='File Backup', variable=self.__procedure, value='File Backup')
+        self.f_backup.place(x=self.__left_margin, y=120)
 
-        ft_backup = ttk.Radiobutton(self.root, text='File Type Backup', variable=procedure, value='File Type Backup')
-        ft_backup.place(x=self.__left_margin + 150, y=120)
+        self.ft_backup = ttk.Radiobutton(self.root, text='File Type Backup', variable=self.__procedure, value='File Type Backup')
+        self.ft_backup.place(x=self.__left_margin + 150, y=120)
 
-    # def cancle():
-    #     self.label1.set('Test')
+    # Getter
+    def get_source_path(self) -> str:
+        return self.__src_path.get()
+
+    def get_destin_path(self) -> str:
+        return self.__dst_path.get()
+
+    def get_procedure(self) -> str:
+        return self.__procedure.get()
+
+    # Setter 
+    def set_source_path(self, new_str: str):
+        self.__src_path.set(new_str)
+
+    def set_destin_path(self, new_str: str):
+        self.__dst_path.set(new_str)
+
+    def set_procedure(self, new_str: str):
+        self.__procedure.set(new_str)
+
+
+    def open_src(self):
+        self.set_source_path(askdirectory())
+        self.display_source.set('Source : ' + self.get_source_path())
+
+    def open_dst(self):
+        self.set_destin_path(askdirectory())
+        self.display_destin.set('Destination : ' + self.get_destin_path())
+
+    def stop_program(self):
+        self.root.destroy()
+
+    def start_procedure(self):
+        config_tupel = (self.get_source_path(), self.get_destin_path(), self.get_procedure())
+        print(config_tupel)
+        self.root.destroy()
+
 
     def run(self):
         self.root.mainloop()
-
-def run_gui():
-    # Functions on button press
-
-    
-    root.mainloop() # display the gui
