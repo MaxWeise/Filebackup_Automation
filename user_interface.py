@@ -37,7 +37,7 @@ class GUI(object):
         self.__procedure = StringVar()
         self.__src_path = StringVar()
         self.__dst_path = StringVar()
-        self.__program_parameters = None
+        self.__program_parameters = None    #! Tuple of the form (source, dest, method of backup)
 
         # Labels
         self.header1 = Label(self.root, text='Please provide a source and destination folder')
