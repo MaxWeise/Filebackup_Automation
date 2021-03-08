@@ -31,6 +31,7 @@ class GUI(object):
         self.__procedure = StringVar()
         self.__src_path = StringVar()
         self.__dst_path = StringVar()
+        self.__program_parameters = None
 
         # Labels
         self.header1 = Label(self.root, text='Please provide a source and destination folder')
@@ -65,7 +66,7 @@ class GUI(object):
         self.ft_backup = ttk.Radiobutton(self.root, text='File Type Backup', variable=self.__procedure, value='File Type Backup')
         self.ft_backup.place(x=self.__left_margin + 150, y=120)
 
-    # Getter
+    # Getter 
     def get_source_path(self) -> str:
         return self.__src_path.get()
 
@@ -74,6 +75,13 @@ class GUI(object):
 
     def get_procedure(self) -> str:
         return self.__procedure.get()
+
+    def get_program_params(self) -> tuple:
+        if self.__program_parameters is None:
+            print('Sorry, could not find this attrebute, maybe its value is None?')
+        else:
+            return self.__program_parameters
+
 
     # Setter 
     def set_source_path(self, new_str: str):
@@ -85,6 +93,11 @@ class GUI(object):
     def set_procedure(self, new_str: str):
         self.__procedure.set(new_str)
 
+    def set_program_params(self, new_program_params: tuple):
+        if type(new_program_params) is tuple:
+            self.__program_parameters = new_program_params
+        else:
+            print('Incorrect Type, the type must be tuple')
 
     def open_src(self):
         self.set_source_path(askdirectory())
@@ -99,9 +112,8 @@ class GUI(object):
 
     def start_procedure(self):
         config_tupel = (self.get_source_path(), self.get_destin_path(), self.get_procedure())
-        print(config_tupel)
+        self.set_program_params(config_tupel)
         self.root.destroy()
-
 
     def run(self):
         self.root.mainloop()
