@@ -2,13 +2,57 @@
     this script is executed in the gui_main.py file
 
 Created on: 06.03.2021
-Last Revision: 08.03.2021
+Last Revision: 09.03.2021
 @author: Max Weise
 """
 
 from tkinter import *
 from tkinter import ttk
 from tkinter.filedialog import askdirectory
+
+class Confirmation_Dialog(object):
+    """ Simple GUI to authorize a process (using a yes / no answer)
+
+        @author:
+            Max Weise
+    """
+    def __init__(self):
+        self.__confirmation_value = False
+
+        # Create a non resizabel window
+        self.root = Tk()
+        self.root.title('Continue Interrupted Backup Procedures?')
+        self.root.geometry('300x130')
+        self.root.resizable(0, 0)
+        self.back = Frame(master=self.root)
+        self.back.pack(padx=5, pady=5)
+
+        # Labels
+        self.header1 = Label(self.root, text='There are interrupted backup procedures\nResume backup now?')
+        self.header1.pack()
+
+        # Buttons
+        self.start_button = Button(self.root, text='Yes', command=self.set_value_true)
+        self.start_button.place(x=120, y=80)
+        
+        self.cancle_button = Button(self.root, text='No', command=self.set_value_false)
+        self.cancle_button.place(x=180, y=80)
+
+    # Getter
+    def get_confirmation_value(self):
+        return self.__confirmation_value
+
+
+    def set_value_true(self):
+        self.__confirmation_value = True
+        self.root.destroy()
+    
+    def set_value_false(self):
+        self.__confirmation_value = False
+        self.root.destroy()
+    def run(self):
+        """ Run the GUI."""
+        self.root.mainloop()
 
 class GUI(object):
     """ Initialize a GUI to facilitate the process of backing up files
