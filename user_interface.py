@@ -10,7 +10,63 @@ from tkinter import *
 from tkinter import ttk
 from tkinter.filedialog import askdirectory
 
-class Confirmation_Dialog(object):
+class __User_Gui(object):
+    """ Parent class for all user interfaces
+
+        @authot
+            Max Weise
+    """
+    def __init__(self):
+        self.root = Tk()
+        self.root.resizable(0, 0)
+        self.back = Frame(master=self.root)
+        self.back.pack(padx=5, pady=5)
+
+    def run(self):
+        self.root.mainloop()
+
+class User_Input_Interface(__User_Gui):
+    """ Generate an interface for the user to input text
+
+        @author
+            Max Weise
+    """
+    def __init__(self, title=''):
+        super().__init__()
+        self.root.title(title)
+        self.root.geometry('350x200')
+
+        # Attrebutes
+        self.__textbox_content = None
+
+        # Textbox
+        self.user_input = Text(self.root, height=1, width=25)
+        self.user_input.place(x=50, y=100)
+
+        # Labels
+        self.header = Label(self.root, text='Please provide the filetypes (no ".")')
+        self.header.place(x=50, y=30)
+
+        # Buttons
+        self.start_button = Button(self.root, text='Start', command=self.start_procedure)
+        self.start_button.place(x=50, y=150)
+        
+        self.cancle_button = Button(self.root, text='Cancle', command=self.cancle)
+        self.cancle_button.place(x=150, y=150)
+
+    # Getter
+    def get_textbox_content(self):
+        return self.__textbox_content
+    
+    def start_procedure(self):
+        self.__textbox_content = self.user_input.get('1.0', END)
+        self.root.destroy()
+       
+    def cancle(self):
+        self.__textbox_content = None
+        self.root.destroy()
+
+class Confirmation_Dialog(__User_Gui):
     """ Simple GUI to authorize a process (using a yes / no answer)
 
         @author:
@@ -50,11 +106,8 @@ class Confirmation_Dialog(object):
     def set_value_false(self):
         self.__confirmation_value = False
         self.root.destroy()
-    def run(self):
-        """ Run the GUI."""
-        self.root.mainloop()
 
-class GUI(object):
+class GUI(__User_Gui):
     """ Initialize a GUI to facilitate the process of backing up files
 
         @author:
@@ -168,7 +221,3 @@ class GUI(object):
         config_tupel = (self.get_source_path(), self.get_destin_path(), self.get_procedure())
         self.set_program_params(config_tupel)
         self.root.destroy()
-
-    def run(self):
-        """ Run the GUI."""
-        self.root.mainloop()

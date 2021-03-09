@@ -14,7 +14,6 @@ from os import path, listdir, remove
 
 def main():
     # TODO: Recover from json safe
-
     app = GUI()
     app.run()
     user_settings = app.get_program_params()
