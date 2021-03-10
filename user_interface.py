@@ -23,6 +23,7 @@ class __User_Gui(object):
         self.back.pack(padx=5, pady=5)
 
     def run(self):
+        """ Run the interface."""
         self.root.mainloop()
 
 class Text_Input_Interface(__User_Gui):
@@ -55,14 +56,17 @@ class Text_Input_Interface(__User_Gui):
         self.cancle_button.place(x=150, y=150)
 
     # Getter
-    def get_textbox_content(self):
+    def get_textbox_content(self) -> str:
+        """ Return the content of the textbox."""
         return self.__textbox_content
     
     def start_procedure(self):
+        """ Set the instance variable and close the window."""
         self.__textbox_content = self.user_input.get('1.0', END)
         self.root.destroy()
        
     def cancle(self):
+        """ Close the window and ensure the instance variable yields None."""
         self.__textbox_content = None
         self.root.destroy()
 
@@ -95,15 +99,18 @@ class Yes_No_Interface(__User_Gui):
         self.cancle_button.place(x=180, y=80)
 
     # Getter
-    def get_confirmation_value(self):
+    def get_confirmation_value(self) -> bool:
+        """ Return the yes/no descition given by the user."""
         return self.__confirmation_value
 
 
     def set_value_true(self):
+        """ Set the confirmation value to true and close the window."""
         self.__confirmation_value = True
         self.root.destroy()
     
     def set_value_false(self):
+        """ Set the confirmation value to false and close the window."""
         self.__confirmation_value = False
         self.root.destroy()
 
@@ -171,15 +178,21 @@ class GUI(__User_Gui):
 
     # Getter 
     def get_source_path(self) -> str:
+        """ Return the user given source path."""
         return self.__src_path.get()
 
     def get_destin_path(self) -> str:
+        """ Return the user given destination path."""
         return self.__dst_path.get()
 
     def get_procedure(self) -> str:
+        """ Return the backup procedure chosen by the user."""
         return self.__procedure.get()
 
     def get_program_params(self) -> tuple:
+        """ Return a tuple which contains all the data used by the programm
+
+            Tuple format: (source_path, destination_path, backup_procedure)"""
         if self.__program_parameters is None:
             print('Sorry, could not find this attrebute, maybe its value is None?')
         else:
@@ -188,15 +201,19 @@ class GUI(__User_Gui):
 
     # Setter 
     def set_source_path(self, new_str: str):
+        """ Set the source path."""
         self.__src_path.set(new_str)
 
     def set_destin_path(self, new_str: str):
+        """ Set the destination path."""
         self.__dst_path.set(new_str)
 
     def set_procedure(self, new_str: str):
+        """ Set the backup procedure."""
         self.__procedure.set(new_str)
 
     def set_program_params(self, new_program_params: tuple):
+        """ Set the tuple wich yields all neccessary programm parameters."""
         if type(new_program_params) is tuple:
             self.__program_parameters = new_program_params
         else:

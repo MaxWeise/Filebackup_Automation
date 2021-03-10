@@ -13,13 +13,11 @@ from os import getcwd, mkdir, path, listdir
 class JSON_File_Manager(object):
     """ Manage JSON safelogs to determine which paths had a aborted backup
         
-        @params
-            current_working_path: str - Path wich had a aborted backup
         @author
             Max Weise
     """
     def __init__(self):
-        """Initialise a json_file_manager object and specifing the directory which is currently worked on. """
+        """Initialise a json_file_manager object. """
         self.__safe_folder_name = 'json_safe_logs'
         self.__current_working_path = ''
         date = datetime.datetime.now()
