@@ -2,7 +2,7 @@
     this script is executed in the gui_main.py file
 
 Created on: 06.03.2021
-Last Revision: 09.03.2021
+Last Revision: 10.03.2021
 @author: Max Weise
 """
 
@@ -25,7 +25,7 @@ class __User_Gui(object):
     def run(self):
         self.root.mainloop()
 
-class User_Input_Interface(__User_Gui):
+class Text_Input_Interface(__User_Gui):
     """ Generate an interface for the user to input text
 
         @author
@@ -66,25 +66,25 @@ class User_Input_Interface(__User_Gui):
         self.__textbox_content = None
         self.root.destroy()
 
-class Confirmation_Dialog(__User_Gui):
+class Yes_No_Interface(__User_Gui):
     """ Simple GUI to authorize a process (using a yes / no answer)
 
         @author:
             Max Weise
     """
-    def __init__(self):
+    def __init__(self, title='', header=''):
         self.__confirmation_value = False
 
         # Create a non resizabel window
         self.root = Tk()
-        self.root.title('Continue Interrupted Backup Procedures?')
+        self.root.title(title)
         self.root.geometry('300x130')
         self.root.resizable(0, 0)
         self.back = Frame(master=self.root)
         self.back.pack(padx=5, pady=5)
 
         # Labels
-        self.header1 = Label(self.root, text='There are interrupted backup procedures\nResume backup now?')
+        self.header1 = Label(self.root, text=header)
         self.header1.pack()
 
         # Buttons

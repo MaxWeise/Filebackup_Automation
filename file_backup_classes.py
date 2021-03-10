@@ -69,7 +69,7 @@ class Filetype_Backup(File_Backup):
             for name in files:
                 try:
                     if (name.split('.'))[-1] not in self.file_list:
-                        print(f'moving {path.join(root, name)} to {self.dump_dir}')
+#                        print(f'moving {path.join(root, name)} to {self.dump_dir}')
                         shutil.move(path.join(root, name), self.dump_dir)
                 except Exception as e:
                     print(e)
