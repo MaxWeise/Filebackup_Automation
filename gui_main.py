@@ -2,7 +2,7 @@
     This module can be used with a gui
 
 Created on: 07.03.2021
-Last Revision: 10.03.2021
+Last Revision: 11.03.2021
 @author: Max Weise
 """
 
@@ -11,9 +11,25 @@ from file_backup_classes import File_Backup, Filetype_Backup
 from user_interface import GUI, Yes_No_Interface, Text_Input_Interface
 
 from os import path, listdir, remove
+from tkinter.filedialog import askdirectory
 
 def main():
     # TODO: Recover from json safe
+    j_manager = JSON_File_Manager()
+    list_of_json_files = [f for f in listdir(j_manager.get_backup_location())]
+    if len(list_of_json_files) > 0:
+        interface = Yes_No_Interface(title='Recover from aborted procedures', header='Do you want to finish the aborted procedures?')
+        interface.run()
+        if interface.get_confirmation_value():
+            loaded_safes = []
+            for this in list_of_json_files:
+                safestate = j_manager.load_from_json(j_manager.read_file(this))
+                if safestate['backup procedure'] == 'file type backup':
+                    dst_path = askdirectory(title='Provide a destination path')
+
+        del interface
+
+    
     app = GUI()
     app.run()
     user_settings = app.get_program_params()
