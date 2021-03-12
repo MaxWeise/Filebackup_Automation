@@ -2,9 +2,11 @@
     this script is executed in the gui_main.py file
 
 Created on: 06.03.2021
-Last Revision: 10.03.2021
+Last Revision: 12.03.2021
 @author: Max Weise
 """
+
+# TODO: Refactor the code. Provide public setter mehtods, which change the label text
 
 from tkinter import *
 from tkinter import ttk

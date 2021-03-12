@@ -2,7 +2,7 @@
     This module can be used with a gui
 
 Created on: 07.03.2021
-Last Revision: 11.03.2021
+Last Revision: 12.03.2021
 @author: Max Weise
 """
 
@@ -21,11 +21,17 @@ def main():
         interface = Yes_No_Interface(title='Recover from aborted procedures', header='Do you want to finish the aborted procedures?')
         interface.run()
         if interface.get_confirmation_value():
-            loaded_safes = []
+            """ NOTE: 
+                1. Load JSON 
+                2. Initialize GUI object and set all values
+                3. Run the gui
+            """
             for this in list_of_json_files:
                 safestate = j_manager.load_from_json(j_manager.read_file(this))
-                if safestate['backup procedure'] == 'file type backup':
-                    dst_path = askdirectory(title='Provide a destination path')
+                local_app = GUI()
+                local_app.set_source_path(safestate['path'])
+                local_app.set_procedure(safestate['backup procedure'])
+                local_app.run()
 
         del interface
 
@@ -53,6 +59,8 @@ def main():
         if conf.get_confirmation_value():
             ft_backup.garbage_collector.collect_garbage()
         else:
-            pass # TODO: JSON Safe
+            j_manager.set_current_working_path(ft_backup.root)
+            reason = 'User interrupted backup'
+            j_manager.write_file(j_manager.safe_to_json(reason))
 if __name__ == '__main__':
     main()
