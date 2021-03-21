@@ -2,11 +2,11 @@
     this script is executed in the gui_main.py file
 
 Created on: 06.03.2021
-Last Revision: 12.03.2021
+Last Revision: 21.03.2021
 @author: Max Weise
 """
 
-# TODO: Refactor the code. Provide public setter mehtods, which change the label text
+# TODO: Refactor the code
 
 from tkinter import *
 from tkinter import ttk
@@ -51,7 +51,7 @@ class Text_Input_Interface(__User_Gui):
         self.header.place(x=50, y=30)
 
         # Buttons
-        self.start_button = Button(self.root, text='Start', command=self.start_procedure)
+        self.start_button = Button(self.root, text='Start', command=self.__start_procedure)
         self.start_button.place(x=50, y=150)
         
         self.cancle_button = Button(self.root, text='Cancle', command=self.cancle)
@@ -62,7 +62,7 @@ class Text_Input_Interface(__User_Gui):
         """ Return the content of the textbox."""
         return self.__textbox_content
     
-    def start_procedure(self):
+    def __start_procedure(self):
         """ Set the instance variable and close the window."""
         self.__textbox_content = self.user_input.get('1.0', END)
         self.root.destroy()
@@ -159,16 +159,16 @@ class GUI(__User_Gui):
         self.show_dst_path.place(x=80, y=70)
 
         # Buttons
-        self.chose_src = Button(self.root, text='Browse', command=self.open_src)
+        self.chose_src = Button(self.root, text='Browse', command=self.__open_src)
         self.chose_src.place(x=self.__left_margin, y=30)
 
-        self.chose_dst = Button(self.root, text='Browse', command=self.open_dst)
+        self.chose_dst = Button(self.root, text='Browse', command=self.__open_dst)
         self.chose_dst.place(x=self.__left_margin, y=70)
 
-        self.start_button = Button(self.root, text='Start', command=self.start_procedure)
+        self.start_button = Button(self.root, text='Start', command=self.__start_procedure)
         self.start_button.place(x=self.__left_margin, y=150)
 
-        self.cancle_button = Button(self.root, text='Cancle', command=self.stop_program)
+        self.cancle_button = Button(self.root, text='Cancle', command=self.__stop_program)
         self.cancle_button.place(x=self.__left_margin + 80, y=150)
 
         # Radiobuttons
@@ -221,21 +221,31 @@ class GUI(__User_Gui):
         else:
             print('Incorrect Type, the type must be tuple')
 
-    def open_src(self):
+    def set_display_source(self, new_str: str):
+        """ Set the variable which displays the currently selected source path."""
+        self.display_source.set(new_str)
+        self.set_source_path(new_str)
+
+    def set_display_destination(self, new_str: str):
+        """ Set the variable which displays the currently selected destination path."""
+        self.display_destin.set(new_str)
+        self.set_destin_path(new_str)
+
+    def __open_src(self):
         """ Open a filedialog to choose a source directory and set the attribute and labeltext accordingly."""
         self.set_source_path(askdirectory())
         self.display_source.set('Source : ' + self.get_source_path())
 
-    def open_dst(self):
+    def __open_dst(self):
         """ Open a filedialog to choose a destination directory and set the attribute and labeltext accordingly."""
         self.set_destin_path(askdirectory())
         self.display_destin.set('Destination : ' + self.get_destin_path())
 
-    def stop_program(self):
+    def __stop_program(self):
         """ Close the GUI window."""
         self.root.destroy()
 
-    def start_procedure(self):
+    def __start_procedure(self):
         """ Set all the neccessary data and close the GUI window."""
         config_tupel = (self.get_source_path(), self.get_destin_path(), self.get_procedure())
         self.set_program_params(config_tupel)
