@@ -1,7 +1,7 @@
 """ Automatically backup files
 
 Created on: 27.01.2021
-Last revision: 04.03.2021
+Last revision: 21.03.2021
 @author: Max Weise
 """
 

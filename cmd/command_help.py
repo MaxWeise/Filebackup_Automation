@@ -1,7 +1,7 @@
 """ Formatted table which contains information to the commands used in main.py
 
 Created: 05.03.2021
-Last revison: 05.03.2021
+Last revison: 21.03.2021
 @author: Max Weise
 """
 
@@ -21,4 +21,4 @@ def print_help_table():
     x.align = 'l'
     print(x)
 
-print_help_table()
+# print_help_table()
