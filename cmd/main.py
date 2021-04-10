@@ -1,15 +1,9 @@
 """ Automatically backup files
 
 Created on: 27.01.2021
-Last revision: 21.03.2021
+Last revision: 10.04.2021
 @author: Max Weise
 """
-
-from command_help import print_help_table
-from json_safestate_generator import JSON_File_Manager
-from file_backup_classes import File_Backup, Filetype_Backup
-
-from os import path, listdir, remove
 
 def f_file_backup(src=None):
     # Copy full tree of src to dst | Backup full tree without requirements
@@ -43,39 +37,19 @@ def f_ftype_backup(src=None):
         reason = 'User interrupted backup'
         j_manager.write_file(j_manager.safe_to_json(reason))
 
+'''
+    1. Input commands like Powershell or bash (split on space)
+    2. Logg activity using decorators
+'''
 def main():
-    j_manager = JSON_File_Manager()
-    # Search for json safe files
-    list_of_safed_files = [f for f in listdir(j_manager.get_backup_location())]
-    if len(list_of_safed_files) != 0:
-        if (user_descition := input('There are directories with aboarted backup procedures. Resume these Procedures? (y/n)\n>>> ')) == 'y':
-            loaded_safes = []
-            for this in list_of_safed_files:
-                safestate = j_manager.load_from_json(j_manager.read_file(this))     # get json string and parse it to a python dict
-                if safestate['backup procedure'] == 'file type backup':
-                    f_ftype_backup(safestate['path'])
-                elif safestate['backup procedure'] is None:
-                    f_file_backup(safestate['path'])
-                remove(path.join(j_manager.get_backup_location(), this))            # Remove json file after it was dealt with
-    else:
-        print('No json files found\n')
 
-    try:
-        while (descition := input('>>> ')).lower() != 'x':
-            if descition == 'file backup':
-                f_file_backup()
-            elif descition == 'file type backup':
-                f_ftype_backup()
-            elif descition == 'help':
-                print_help_table()
-            else:
-                print(f'ERROR: I dont know the command {descition}, please try again\n')
-                print('For more help, use the "help" command')
-    except Exception as e:
-        j_manager.write_file(j_manager.safe_to_json(e.__str__(), descition))
+    while True:
+        user_input = input('>>> ')
+        user_commands = user_input.split(' ')
 
-    print('-- End of module --')
-        
-
+        if 'exit' in user_commands:
+            break
+        else:
+            print('it continues')
 if __name__ == '__main__':
     main()
