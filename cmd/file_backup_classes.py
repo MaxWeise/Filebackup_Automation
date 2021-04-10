@@ -34,6 +34,7 @@ class File_Backup(object):
     def __str__(self) -> str:
         """Print a humanly readable representation to the console. """
         return f'Backing up {self.root} into {self.dest}'
+
         
 class Filetype_Backup(File_Backup):
     """ Can be used to backup files with user specific filetypes
@@ -77,6 +78,7 @@ class Filetype_Backup(File_Backup):
     def __str__(self) -> str:
         """Print a humanly readable representation to the console. """
         return f'Backing up {self.root} into {self.dest} using these filetypes: {self.file_list}'
+
 
 class Garbage_Collector(object):
     """ Remove the dump directory created by Filetype_Backup
