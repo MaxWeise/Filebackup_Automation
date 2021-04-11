@@ -37,19 +37,22 @@ def f_ftype_backup(src=None):
         reason = 'User interrupted backup'
         j_manager.write_file(j_manager.safe_to_json(reason))
 
+def parse_commands(interface_arguments: str) -> list:
+    """Take the input line of a user and separate all words into a list. """
+    argument_list = interface_arguments.split(' ')
+    if argument_list[-1] == '':     # Ignore empty string at end of list
+        argument_list.pop(len(argument_list)-1)
+
+    return argument_list
+    
 '''
     1. Input commands like Powershell or bash (split on space)
     2. Logg activity using decorators
 '''
 def main():
+    while (user_in := input('>>> ')) != 'exit':
+        command_list = parse_commands(user_in)
+        print(command_list)
 
-    while True:
-        user_input = input('>>> ')
-        user_commands = user_input.split(' ')
-
-        if 'exit' in user_commands:
-            break
-        else:
-            print('it continues')
 if __name__ == '__main__':
     main()
