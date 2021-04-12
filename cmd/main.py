@@ -59,16 +59,13 @@ def parse_commands(interface_arguments: str) -> list:
 def main():
     while (user_in := input('>>> ')) != 'exit':
         command_list = parse_commands(user_in)
-        print(command_list)
+
         if command_list[0] == 'backup':
             # TODO: Implement backup
             if '-ft' in command_list:
-                print('filetype backup')
                 command_list.pop(command_list.index('-ft'))
-                print(command_list)
             else:
                 print('There has been a mistake, there was no option specified')
-            pass
         elif command_list[0] == 'help':
             print_help_table()
         else: 
