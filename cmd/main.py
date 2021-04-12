@@ -1,10 +1,17 @@
 """ Automatically backup files
 
 Created on: 27.01.2021
-Last revision: 10.04.2021
+Last revision: 12.04.2021
 @author: Max Weise
 """
 
+from command_help import print_help_table
+
+""" Note:
+    - Inspect the first arg of command list and descide which method to call
+    - if no known command -> trash rest of list
+    - else -> following str will be flags for command execution
+"""
 def f_file_backup(src=None):
     # Copy full tree of src to dst | Backup full tree without requirements
     if src is None:
@@ -53,6 +60,20 @@ def main():
     while (user_in := input('>>> ')) != 'exit':
         command_list = parse_commands(user_in)
         print(command_list)
+        if command_list[0] == 'backup':
+            # TODO: Implement backup
+            if '-ft' in command_list:
+                print('filetype backup')
+                command_list.pop(command_list.index('-ft'))
+                print(command_list)
+            else:
+                print('There has been a mistake, there was no option specified')
+            pass
+        elif command_list[0] == 'help':
+            print_help_table()
+        else: 
+            print(f'Sorry, I dont know the command <{command_list[0]}>')
+            print('Type <help> to get an overview of the commands')
 
 if __name__ == '__main__':
     main()
