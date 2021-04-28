@@ -1,7 +1,7 @@
 """ Automatically backup files
 
 Created on: 27.01.2021
-Last revision: 15.04.2021
+Last revision: 20.04.2021
 @author: Max Weise
 """
 
@@ -17,8 +17,10 @@ import file_backup_classes as fb
 def parse_commands(interface_arguments: str) -> list:
     """Take the input line of a user and separate all words into a list. """
     argument_list = interface_arguments.split(' ')
-    if argument_list[-1] == '':     # Ignore empty string at end of list
-        argument_list.pop(len(argument_list)-1)
+
+    for count, value in enumerate(argument_list):
+        if value == '':
+            argument_list.pop(count)
 
     return argument_list
 
