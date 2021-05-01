@@ -2,10 +2,9 @@
     In both cases, the structure of the directory will be keept.
 
 Created: 15.02.2021
-Last revision: 02.03.2021
+Last revision: 28.04.2021
 @author: Max Weise
 """
-
 import os
 import shutil
 
@@ -49,57 +48,12 @@ class Filetype_Backup(File_Backup):
     def __init__(self, root: str, destination: str,  file_types: list):
         """Initialize Filetype_backup object by giving root and dest to superconstructor and specifing a list of filetypes to backup."""
         super().__init__(root, destination)
-        self.file_list = file_types
-        self.dump_dir = '.dumped_files'
-        self.garbage_collector = Garbage_Collector(self.dump_dir)
+        self.file_types = file_types
     
-    def get_dump_dir(self) -> str:
-        """Return the path to dump_dir. """
-        return self.dump_dir
-    
-    def dump_files(self) -> None:
-        """Move unwanted filetypes to a directory which later gets deleted by a garbage collector. """
-        try:
-            mkdir(self.dump_dir)
-        except FileExistsError:
-            print(f'The directory does allready exist\n')
-        except Exception as e:
-            print(e)
-
-        for root, _, files in os.walk(self.root):   # underscore '_' replaces iteration variable 'dir'
-            for name in files:
-                try:
-                    if (name.split('.'))[-1] not in self.file_list:
-                        print(f'moving {path.join(root, name)} to {self.dump_dir}')
-                        shutil.move(path.join(root, name), self.dump_dir)
-                except Exception as e:
-                    print(e)
     # override
     def __str__(self) -> str:
         """Print a humanly readable representation to the console. """
-        return f'Backing up {self.root} into {self.dest} using these filetypes: {self.file_list}'
-
-
-class Garbage_Collector(object):
-    """ Remove the dump directory created by Filetype_Backup
-        
-        @params 
-            O: object - Filebackup object creating a dump directory
-        
-        @author 
-            Max Weise
-    """
-    def __init__(self, dump_dir: str):
-        """Initialise a Garbage_collection object by giving a object which produces 'garbage'."""
-        self.dump_dir = dump_dir
-
-    def collect_garbage(self) -> None:
-        """Remove the dump_dir created by File_Backup object. """
-        shutil.rmtree(self.dump_dir)
-
-    def __str__(self) -> str:
-        """Print a humanly readable representation to the console. """
-        return f'Cleaning up {self.dump_dir}'
+        return f'Backing up {self.root} into {self.dest} using these filetypes: {self.file_types}'
 
 def msg():
     print('This module is not suposed to be run as a main module')
