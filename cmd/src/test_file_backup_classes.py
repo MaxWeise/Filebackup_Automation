@@ -28,44 +28,44 @@ class TestFile_Backup(TestCase):
             Max Weise
     """
 
-    SOURCE_PATH = 'test_source' 
-    DESTIN_PATH = 'test_destin'
-    number_of_files = 5
+    __SOURCE_PATH = 'test_source' 
+    __DESTIN_PATH = 'test_destin'
+    __number_of_files = 5
     
     def setUp(self):
         """ Create the directories and files needed for the test. Create an instance of File_Backup"""
-        if not os.path.exists(self.SOURCE_PATH):
-            os.makedirs(self.SOURCE_PATH)
+        if not os.path.exists(self.__SOURCE_PATH):
+            os.makedirs(self.__SOURCE_PATH)
 
-        if not os.path.exists(self.DESTIN_PATH):
-            os.makedirs(self.DESTIN_PATH)
+        if not os.path.exists(self.__DESTIN_PATH):
+            os.makedirs(self.__DESTIN_PATH)
 
-        for i in range(self.number_of_files):
-            file_path = os.path.join(self.SOURCE_PATH, str(i) + '_name.txt')
+        for i in range(self.__number_of_files):
+            file_path = os.path.join(self.__SOURCE_PATH, str(i) + '_name.txt')
             with open(file_path, 'w+') as f:    # Write empty files
                 pass
 
-        self.f = File_Backup(self.SOURCE_PATH, self.DESTIN_PATH)
+        self.f = File_Backup(self.__SOURCE_PATH, self.__DESTIN_PATH)
     
     def test_fileBackup_BackupTree(self):
         """ Test if all files in self.SOURCE_PATH get copied correctly."""
         self.f.backup_tree()
 
-        self.assertEqual(len(os.listdir(self.DESTIN_PATH)), self.number_of_files)
+        self.assertEqual(len(os.listdir(self.__DESTIN_PATH)), self.__number_of_files)
         
     def tearDown(self):
         """ Remove all files and directories used in the testing process. Remove the File_Backup instance."""
-        source_files = os.listdir(self.SOURCE_PATH)
-        destin_files = os.listdir(self.DESTIN_PATH)
+        source_files = os.listdir(self.__SOURCE_PATH)
+        destin_files = os.listdir(self.__DESTIN_PATH)
 
         for f in source_files:
-            os.remove(os.path.join(self.SOURCE_PATH, f))
+            os.remove(os.path.join(self.__SOURCE_PATH, f))
 
         for f in destin_files:
-            os.remove(os.path.join(self.DESTIN_PATH, f))
+            os.remove(os.path.join(self.__DESTIN_PATH, f))
         
-        os.rmdir(self.SOURCE_PATH)
-        os.rmdir(self.DESTIN_PATH)
+        os.rmdir(self.__SOURCE_PATH)
+        os.rmdir(self.__DESTIN_PATH)
 
         del self.f
 
