@@ -1,11 +1,11 @@
 """ Testmodule for file_backup.py
 
 created: 28.04.2021
-last revision: 01.05.2021
+last revision: 04.05.2021
 author: Max Weise
 """
 
-# NOTE: Naming convention, <> = Identifier, [] = Optional Description
+# NOTE: Naming convention, <> = Identifier, [] = Optional Description - If empty, test for 'normal' run
 # For Classes: Test<Name>(TestCase)
 # For Methods: def test_<nameInCamelCase>_[ExpectedConditions](self)
 
@@ -27,7 +27,7 @@ class TestFile_Backup(TestCase):
 
     __SOURCE_PATH = 'test_source' 
     __DESTIN_PATH = 'test_destin'
-    __number_of_files = 5
+    __NUMBER_OF_FILES = 5
     
     def setUp(self):
         """ Create the directories and files needed for the test. Create an instance of File_Backup"""
@@ -37,18 +37,18 @@ class TestFile_Backup(TestCase):
         if not os.path.exists(self.__DESTIN_PATH):
             os.makedirs(self.__DESTIN_PATH)
 
-        for i in range(self.__number_of_files):
+        for i in range(self.__NUMBER_OF_FILES):
             file_path = os.path.join(self.__SOURCE_PATH, str(i) + '_name.txt')
             with open(file_path, 'w+') as f:    # Write empty files
                 pass
 
         self.f = File_Backup(self.__SOURCE_PATH, self.__DESTIN_PATH)
     
-    def test_fileBackup_BackupTree(self):
+    def test_fileBackup(self):
         """ Test if all files in self.SOURCE_PATH get copied correctly."""
         self.f.backup_tree()
 
-        self.assertEqual(len(os.listdir(self.__DESTIN_PATH)), self.__number_of_files)
+        self.assertEqual(len(os.listdir(self.__DESTIN_PATH)), self.__NUMBER_OF_FILES)
         
     def tearDown(self):
         """ Remove all files and directories used in the testing process. Remove the File_Backup instance."""
