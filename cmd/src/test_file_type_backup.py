@@ -1,7 +1,7 @@
-""" Testmodule for file_backup.py
+""" Testmodule for file_type_backup.py
 
-created: 28.04.2021
-last revision: 01.05.2021
+created: 04.05.2021
+last revision: 04.05.2021
 author: Max Weise
 """
 
@@ -15,8 +15,7 @@ import os
 import unittest
 
 from unittest import TestCase
-from file_backup import File_Backup
-
+from file_type_backup import File_Type_Backup
 
 class TestFile_Backup(TestCase):
     """ Test the Filebackupclass
@@ -42,14 +41,16 @@ class TestFile_Backup(TestCase):
             with open(file_path, 'w+') as f:    # Write empty files
                 pass
 
-        self.f = File_Backup(self.__SOURCE_PATH, self.__DESTIN_PATH)
+        for i in range(self.__number_of_files):
+            file_path = os.path.join(self.__SOURCE_PATH, str(i) + '_name.abcd')
+            with open(file_path, 'w+') as f:    # Write empty files
+                pass
+
+        self.f = File_Type_Backup(self.__SOURCE_PATH, self.__DESTIN_PATH)
     
     def test_fileBackup_BackupTree(self):
-        """ Test if all files in self.SOURCE_PATH get copied correctly."""
-        self.f.backup_tree()
+       pass 
 
-        self.assertEqual(len(os.listdir(self.__DESTIN_PATH)), self.__number_of_files)
-        
     def tearDown(self):
         """ Remove all files and directories used in the testing process. Remove the File_Backup instance."""
         source_files = os.listdir(self.__SOURCE_PATH)
@@ -68,3 +69,4 @@ class TestFile_Backup(TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
