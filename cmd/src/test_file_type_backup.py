@@ -5,7 +5,7 @@ last revision: 04.05.2021
 author: Max Weise
 """
 
-# NOTE: Naming convention, <> = Identifier, [] = Optional Description
+# NOTE: Naming convention, <> = Identifier, [] = Optional Description - If empty, test for 'normal' run
 # For Classes: Test<Name>(TestCase)
 # For Methods: def test_<nameInCamelCase>_[ExpectedConditions](self)
 
@@ -17,7 +17,7 @@ import unittest
 from unittest import TestCase
 from file_type_backup import File_Type_Backup
 
-class TestFile_Backup(TestCase):
+class TestFile_Type_Backup(TestCase):
     """ Test the Filebackupclass
 
         @author
@@ -26,33 +26,49 @@ class TestFile_Backup(TestCase):
 
     __SOURCE_PATH = 'test_source' 
     __DESTIN_PATH = 'test_destin'
-    __number_of_files = 5
+    __NUMBER_OF_FILES = 5
     
     def setUp(self):
-        """ Create the directories and files needed for the test. Create an instance of File_Backup"""
+        """ Create the directories and files needed for the test. Create an instance of File_Type_Backup"""
         if not os.path.exists(self.__SOURCE_PATH):
             os.makedirs(self.__SOURCE_PATH)
 
         if not os.path.exists(self.__DESTIN_PATH):
             os.makedirs(self.__DESTIN_PATH)
 
-        for i in range(self.__number_of_files):
+        # Write two sets of files with different file extentions (.txt and .abcd)
+        for i in range(self.__NUMBER_OF_FILES):
             file_path = os.path.join(self.__SOURCE_PATH, str(i) + '_name.txt')
             with open(file_path, 'w+') as f:    # Write empty files
                 pass
 
-        for i in range(self.__number_of_files):
+        for i in range(self.__NUMBER_OF_FILES):
             file_path = os.path.join(self.__SOURCE_PATH, str(i) + '_name.abcd')
             with open(file_path, 'w+') as f:    # Write empty files
                 pass
 
         self.f = File_Type_Backup(self.__SOURCE_PATH, self.__DESTIN_PATH)
     
-    def test_fileBackup_BackupTree(self):
-       pass 
+    def test_FileTypeBackup(self):
+        """ Test the main functionality of the class by copying all specified files to the intended directory."""
+        # We do two passes: 
+        # First: get all .txt files, then assert len(__DESTIN_PATH) = __NUMBER_OF_FILES
+        # Second: get all .abcd files, then assert len(__DESTIN_PATH) = 2 * __NUMBER_OF_FILES
+
+        # First pass
+        self.f.set_file_types(['txt'])
+        self.f.backup_file_types()
+
+        self.assertEqual(len(os.listdir(self.__DESTIN_PATH)), self.__NUMBER_OF_FILES)
+        
+        # Second pass
+        self.f.set_file_types(['abcd'])
+        self.f.backup_file_types()
+
+        self.assertEqual(len(os.listdir(self.__DESTIN_PATH)), (2 * self.__NUMBER_OF_FILES))
 
     def tearDown(self):
-        """ Remove all files and directories used in the testing process. Remove the File_Backup instance."""
+        """ Remove all files and directories used in the testing process. Remove the File_Type instance."""
         source_files = os.listdir(self.__SOURCE_PATH)
         destin_files = os.listdir(self.__DESTIN_PATH)
 
