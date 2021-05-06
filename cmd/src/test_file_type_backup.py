@@ -28,6 +28,18 @@ class TestFile_Type_Backup(TestCase):
     __DESTIN_PATH = 'test_destin'
     __NUMBER_OF_FILES = 5
     
+    # Auxiliary methods
+    def __check_for_correct_files(self, f: File_Type_Backup) -> bool:
+        files_in_dir = os.listdir(self.__DESTIN_PATH)
+        all_files_correct = True
+
+        for string in files_in_dir:
+            file_extention = string.split('.')
+            if file_extention[-1] not in self.f.get__file_types():
+                all_files_correct = False
+
+        return all_files_correct
+
     def setUp(self):
         """ Create the directories and files needed for the test. Create an instance of File_Type_Backup"""
         if not os.path.exists(self.__SOURCE_PATH):
@@ -47,25 +59,28 @@ class TestFile_Type_Backup(TestCase):
             with open(file_path, 'w+') as f:    # Write empty files
                 pass
 
-        self.f = File_Type_Backup(self.__SOURCE_PATH, self.__DESTIN_PATH)
+        self.f = File_Type_Backup(self.__SOURCE_PATH, self.__DESTIN_PATH, None)
     
     def test_FileTypeBackup(self):
         """ Test the main functionality of the class by copying all specified files to the intended directory."""
-        # We do two passes: 
-        # First: get all .txt files, then assert len(__DESTIN_PATH) = __NUMBER_OF_FILES
-        # Second: get all .abcd files, then assert len(__DESTIN_PATH) = 2 * __NUMBER_OF_FILES
 
         # First pass
-        self.f.set_file_types(['txt'])
+        self.f.set__file_types(['txt'])
         self.f.backup_file_types()
 
-        self.assertEqual(len(os.listdir(self.__DESTIN_PATH)), self.__NUMBER_OF_FILES)
-        
+        self.assertEqual(len(os.listdir(self.__DESTIN_PATH)), self.__NUMBER_OF_FILES)   # Check if correct number of files have been copied
+        self.assertTrue(self.__check_for_correct_files(self.f))                         # Check if correct file extentions habe been copied
+
         # Second pass
         self.f.set_file_types(['abcd'])
         self.f.backup_file_types()
 
         self.assertEqual(len(os.listdir(self.__DESTIN_PATH)), (2 * self.__NUMBER_OF_FILES))
+
+    @unittest.skip('Will be implemented later')
+    def test_FileTypeBackup_RaisePathDoesNotExistError(self):
+        """ If a given path does not exist, an error should be thrown by the method."""
+        pass
 
     def tearDown(self):
         """ Remove all files and directories used in the testing process. Remove the File_Type instance."""
