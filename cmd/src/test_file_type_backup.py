@@ -1,7 +1,7 @@
 """ Testmodule for file_type_backup.py
 
 created: 04.05.2021
-last revision: 04.05.2021
+last revision: 08.05.2021
 author: Max Weise
 """
 
@@ -15,7 +15,7 @@ import os
 import unittest
 
 from unittest import TestCase
-from file_type_backup import File_Type_Backup
+from impl.file_type_backup import File_Type_Backup
 
 class TestFile_Type_Backup(TestCase):
     """ Test the Filebackupclass
@@ -61,6 +61,10 @@ class TestFile_Type_Backup(TestCase):
 
         self.f = File_Type_Backup(self.__SOURCE_PATH, self.__DESTIN_PATH, None)
     
+    def test____find_start_directory(self):
+        """ Test for the find_start_directory method."""
+        pass
+
     def test_FileTypeBackup(self):
         """ Test the main functionality of the class by copying all specified files to the intended directory."""
 
