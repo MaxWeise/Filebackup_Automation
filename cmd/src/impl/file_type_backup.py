@@ -1,12 +1,13 @@
 """ Class to backup specified filetypes
 
 Created: 01.05.2021
-Last revision: 01.05.2021
+Last revision: 08.05.2021
 @author: Max Weise
 """
 
-from os import listdir
-from file_backup import File_Backup
+from os import listdir, walk
+from shutil import copy
+from impl.file_backup import File_Backup
 
 class File_Type_Backup(File_Backup):
     """ This class can be used to backup files regarding 
@@ -21,7 +22,6 @@ class File_Type_Backup(File_Backup):
 
         @author
             Max Weise
-
     """
 
     def __init__(self, root, destination, __file_types):
@@ -34,16 +34,21 @@ class File_Type_Backup(File_Backup):
         self.__file_types = new_file_types
 
     def get__file_types(self) -> list:
+        """ Get the contents of the __file_types attribute."""
         return self.__file_types
+
+    def __find_start_directory(path_on_system: str, destination_path: str, root_to_find: str):
+        """ Find the root directory in a given path."""
+        pass
 
     def backup_file_types(self) -> None:
         """ Copy specified files matching the sorting-criterium from root to destination."""
-        all_files = listdir(self.root)
-        wanted_files = []
-
-        # Search the files that should be copied
-        for f in all_files:
-            f_extention = f.split('.')
-            if f_extention[-1] in self.__file_types:
-                wanted_files.append(f)
-        
+        for root, dirs, files in walk(self.root):
+            if len(files) > 0:
+                for f in files:
+                    file_substrings = f.split('.')
+                    if file_substrings in self.__file_types:
+                        src = root + f
+                        dst = self.dest + f
+                        copy(src, dst)  # Copy the relevant path
+                        
