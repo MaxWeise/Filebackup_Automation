@@ -40,27 +40,6 @@ class File_Backup(object):
         """Print a humanly readable representation to the console. """
         return f'Backing up {self.root} into {self.dest}'
 
-        
-#class Filetype_Backup(File_Backup):
-#    """ Can be used to backup files with user specific filetypes
-#        
-#        @params 
-#            root: str -  rootdirectory 
-#            file_types: list -  filetypes to backup
-#
-#        @author 
-#            Max Weise
-#    """ 
-#    def __init__(self, root: str, destination: str,  file_types: list):
-#        """Initialize Filetype_backup object by giving root and dest to superconstructor and specifing a list of filetypes to backup."""
-#        super().__init__(root, destination)
-#        self.file_types = file_types
-#    
-#    # override
-#    def __str__(self) -> str:
-#        """Print a humanly readable representation to the console. """
-#        return f'Backing up {self.root} into {self.dest} using these filetypes: {self.file_types}'
-
 def msg():
     print('This module is not suposed to be run as a main module')
     print('To debugg, please run the <test.py> module')
