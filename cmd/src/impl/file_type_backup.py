@@ -1,13 +1,15 @@
 """ Class to backup specified filetypes
 
 Created: 01.05.2021
-Last revision: 08.05.2021
+Last revision: 10.05.2021
 @author: Max Weise
 """
 
-from os import listdir, walk
 from shutil import copy
+from os import listdir, walk
+
 from impl.file_backup import File_Backup
+from impl.custom_exceptions import Root_Not_Found
 
 class File_Type_Backup(File_Backup):
     """ This class can be used to backup files regarding 
@@ -37,10 +39,12 @@ class File_Type_Backup(File_Backup):
         """ Get the contents of the __file_types attribute."""
         return self.__file_types
 
-    def __find_start_directory(path_on_system: str, destination_path: str, root_to_find: str):
-        """ Find the root directory in a given path."""
-        pass
-
+    def find_start_directory(self, path_on_system: str, root_to_find: str):
+        """ Find the root directory in a given path.
+            If root doesn't exist in path, a ValueError is raised by the index method."""
+        p_o_sys = path_on_system.split('\\')
+        return p_o_sys.index(root_to_find)
+        
     def backup_file_types(self) -> None:
         """ Copy specified files matching the sorting-criterium from root to destination."""
         for root, dirs, files in walk(self.root):
