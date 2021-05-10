@@ -11,4 +11,4 @@ class Root_Not_Found(Exception):
         @author
             Max Weise
     """
-    pass 
+    pass

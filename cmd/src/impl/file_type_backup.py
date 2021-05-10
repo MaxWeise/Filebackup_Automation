@@ -39,7 +39,7 @@ class File_Type_Backup(File_Backup):
         """ Get the contents of the __file_types attribute."""
         return self.__file_types
 
-    def find_start_directory(self, path_on_system: str, root_to_find: str):
+    def __find_start_directory(self, path_on_system: str, root_to_find: str):
         """ Find the root directory in a given path.
             If root doesn't exist in path, a ValueError is raised by the index method."""
         p_o_sys = path_on_system.split('\\')

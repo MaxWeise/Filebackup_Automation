@@ -62,6 +62,7 @@ class TestFile_Type_Backup(TestCase):
 
         self.f = File_Type_Backup(self.__SOURCE_PATH, self.__DESTIN_PATH, None)
     
+    @unittest.skip('Private methods should not be tested')
     def test_find_start_directory(self):
         """ Test for the find_start_directory method."""
         test_path = os.path.join('C:', 'Users', 'fenci', 'Code', 'Filebackup_Automation', 'legacy')
@@ -69,7 +70,7 @@ class TestFile_Type_Backup(TestCase):
 
         self.assertEqual(self.f.find_start_directory(test_path, test_root), 2)
 
-#    @unittest.skip('Will be implemented later')
+    @unittest.skip('Private methods should not be tested')
     def test_find_start_directory_RaiseValueError(self):
         """ Test if the expected exception (ValueError) is raised."""
         test_path = os.path.join('C:', 'Users', 'fenci', 'Code', 'Filebackup_Automation', 'legacy')

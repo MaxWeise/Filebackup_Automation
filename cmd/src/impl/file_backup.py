@@ -2,7 +2,7 @@
     In both cases, the structure of the directory will be keept.
 
 Created: 15.02.2021
-Last revision: 01.05.2021
+Last revision: 10.05.2021
 @author: Max Weise
 """
 import os
