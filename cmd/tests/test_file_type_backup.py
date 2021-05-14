@@ -11,12 +11,13 @@ author: Max Weise
 
 # Execute using $ python -m unittest -v test_module.TestClass.test_method    
 
-import os
-import unittest
+import os, unittest, sys
 
 from unittest import TestCase
 
-from impl.file_type_backup import File_Type_Backup
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from src.file_type_backup import File_Type_Backup
+
 
 class TestFile_Type_Backup(TestCase):
     """ Test the Filebackupclass

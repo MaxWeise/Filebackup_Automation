@@ -1,12 +1,5 @@
 # === Specific files / folders ===
-impl/custom_exceptions.py
-test.py
-test_root
-test_dest
-json_safe_logs/
-templates
-.dumped_files
-legacy
+src/custom_exceptions.py
 
 # === Python ===
 # Byte-compiled / optimized / DLL files
