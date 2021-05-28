@@ -89,7 +89,6 @@ class TestFile_Type_Backup(TestCase):
 
     def tearDown(self):
         """ Remove all files and directories used in the testing process. Remove the File_Type instance."""
-        input('Press enter to resume the tearDown process')
         source_files = os.listdir(self.__SOURCE_PATH)
         destin_files = os.listdir(self.__DESTIN_PATH)
 
