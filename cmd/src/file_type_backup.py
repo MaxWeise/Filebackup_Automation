@@ -9,17 +9,14 @@ from shutil import copy
 from os import listdir, walk, path
 
 from src.file_backup import File_Backup
-# from src.custom_exceptions import Root_Not_Found
 
 class File_Type_Backup(File_Backup):
     """ This class can be used to backup files regarding 
         their types (file endings '.xxx'). 
-        It sorts out all unwanted files and copys the remaining 
-        files to the specified backup destination.
 
         @params
-            root: str - root directory
-            destination: str - destination directory
+            root:         str  - root directory
+            destination:  str  - destination directory
             __file_types: list - filetyes to backup
 
         @author
@@ -31,6 +28,7 @@ class File_Type_Backup(File_Backup):
         super().__init__(root, destination)
         self.__file_types = __file_types
 
+
     def set__file_types(self, new_file_types: list) -> None:
         """ Set the attribute __file_types to a specified list. Mostly used for testing."""
         self.__file_types = new_file_types
@@ -39,11 +37,6 @@ class File_Type_Backup(File_Backup):
         """ Get the contents of the __file_types attribute."""
         return self.__file_types
 
-#    def __find_start_directory(self, path_on_system: str, root_to_find: str):
-#        """ Find the root directory in a given path.
-#            If root doesn't exist in path, a ValueError is raised by the index method."""
-#        p_o_sys = path_on_system.split('\\')
-#        return p_o_sys.index(root_to_find)
         
     def __check_for_relevant_files(self, list_to_check: list) -> list:
         """ Search a given list of files for files with relevant filetypes."""

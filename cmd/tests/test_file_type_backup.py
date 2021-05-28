@@ -1,7 +1,7 @@
 """ Testmodule for file_type_backup.py
 
 created: 04.05.2021
-last revision: 10.05.2021
+last revision: 28.05.2021
 author: Max Weise
 """
 
@@ -17,7 +17,6 @@ from unittest import TestCase
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.file_type_backup import File_Type_Backup
-
 
 class TestFile_Type_Backup(TestCase):
     """ Test the Filebackupclass
@@ -42,6 +41,7 @@ class TestFile_Type_Backup(TestCase):
 
         return all_files_correct
 
+
     def setUp(self):
         """ Create the directories and files needed for the test. Create an instance of File_Type_Backup"""
         if not os.path.exists(self.__SOURCE_PATH):
@@ -63,23 +63,6 @@ class TestFile_Type_Backup(TestCase):
 
         self.f = File_Type_Backup(self.__SOURCE_PATH, self.__DESTIN_PATH, None)
     
-    @unittest.skip('Private methods should not be tested')
-    def test_find_start_directory(self):
-        """ Test for the find_start_directory method."""
-        test_path = os.path.join('C:', 'Users', 'fenci', 'Code', 'Filebackup_Automation', 'legacy')
-        test_root = 'Code'
-
-        self.assertEqual(self.f.find_start_directory(test_path, test_root), 2)
-
-    @unittest.skip('Private methods should not be tested')
-    def test_find_start_directory_RaiseValueError(self):
-        """ Test if the expected exception (ValueError) is raised."""
-        test_path = os.path.join('C:', 'Users', 'fenci', 'Code', 'Filebackup_Automation', 'legacy')
-        test_root = 'not_in_path'
-
-        with self.assertRaises(ValueError):
-            self.f.find_start_directory(test_path, test_root)
-
 
     def test_FileTypeBackup(self):
         """ Test the main functionality of the class by copying all specified files to the intended directory."""
@@ -97,10 +80,12 @@ class TestFile_Type_Backup(TestCase):
 
         self.assertEqual(len(os.listdir(self.__DESTIN_PATH)), (2 * self.__NUMBER_OF_FILES))
 
+
     @unittest.skip('Will be implemented later')
     def test_FileTypeBackup_RaisePathDoesNotExistError(self):
         """ If a given path does not exist, an error should be thrown by the method."""
         pass
+
 
     def tearDown(self):
         """ Remove all files and directories used in the testing process. Remove the File_Type instance."""
