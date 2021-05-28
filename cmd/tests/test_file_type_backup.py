@@ -92,7 +92,7 @@ class TestFile_Type_Backup(TestCase):
         self.assertTrue(self.__check_for_correct_files(self.f))                         # Check if correct file extentions habe been copied
 
         # Second pass
-        self.f.set_file_types(['abcd'])
+        self.f.set__file_types(['abcd'])
         self.f.backup_file_types()
 
         self.assertEqual(len(os.listdir(self.__DESTIN_PATH)), (2 * self.__NUMBER_OF_FILES))
@@ -104,6 +104,7 @@ class TestFile_Type_Backup(TestCase):
 
     def tearDown(self):
         """ Remove all files and directories used in the testing process. Remove the File_Type instance."""
+        input('Press enter to resume the tearDown process')
         source_files = os.listdir(self.__SOURCE_PATH)
         destin_files = os.listdir(self.__DESTIN_PATH)
 
