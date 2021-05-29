@@ -1,14 +1,14 @@
 """ Class to backup specified filetypes
 
 Created: 01.05.2021
-Last revision: 28.05.2021
+Last revision: 29.05.2021
 @author: Max Weise
 """
 
 from shutil import copy
 from os import listdir, walk, path
 
-from src.file_backup import File_Backup
+from file_backup import File_Backup
 
 class File_Type_Backup(File_Backup):
     """ This class can be used to backup files regarding 
