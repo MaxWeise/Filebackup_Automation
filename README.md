@@ -2,18 +2,29 @@
 # Backup Automation Script
 This script is used to backup files (recursivley) either to a harddrive or a NAS
 
-Feel free to clone this repo and use / experiment with the code
-but please mention my name and the repo in the docstring.
-Thanks
+# Dependencies
+    - Python 3.X
 
-# How to use it
-The script runs on Python 3, so be sure to have it installed. It can be run by './main.py' (PowerShell) or 'python main.py' (Bash).
+# Usage
+Currently, the only way of using the script is by executing the **main.py**
+file in the **src** directory. This can be done in any commandline-interface
+(Unix based systems and Windows systems). 
+On start the possibilities available to the user are displayed in the terminal window. By entering one of those options, the corresponding procedure will be called and the user gets asked from which directory files should be copied and where to. In case the 'File-Type-Backup' procedure got called, a list of relevant filetypes is asked. 
 
-## CMD Interface
-The script will run in an infinite loop, until an 'x' is given as command.
-There exist 3 commands to use in the loop:
- * **file backup**: Specifiy a root directory and a destination directory. All files and directories will get copied recursively from root to destination.
- * **file type backup**: In addition to root and dest, specify a number of filetypes (i.e.: txt, py, c, json). All other filetypes will sorted into a 'dump directory' and (after confirmation) this directory will get deleted. The remaining directory structure will get copied.
- * **help**: A list including all commands and a short description.
+# Licence
+Generally speaking, I don't mind usage of this source code, whether it be in
+your own project or just to backup your own personal files, as long as my name
+(or GitHub repo) is credited. However, I don't take any responsibility for lost
+files and/or data, or any other damage done by this code or any modifications
+of it.
+For further information, read the *LICENCE* file located in this repository.
 
+# Documentation
+If you are interested in the documentation, please look under *cmd/doc*. There
+you will find the documentation (.pdf), containing explanations for the classes
+and mehtods, as well as the styleguide. 
+
+For any further questions, contact me under:
+maxfencing@web.de or
+max.weise@student.reutlingen-university.de 	(please note that this email was given to me by a university and will someday be inactive)
 
