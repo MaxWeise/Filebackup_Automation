@@ -25,6 +25,6 @@ you will find the documentation (.pdf), containing explanations for the classes
 and mehtods, as well as the styleguide. 
 
 For any further questions, contact me under:
-maxfencing@web.de or
-max.weise@student.reutlingen-university.de 	(please note that this email was given to me by a university and will someday be inactive)
+ - maxfencing@web.de or
+ - max.weise@student.reutlingen-university.de 	(please note that this email was given to me by a university and will someday be inactive)
 
