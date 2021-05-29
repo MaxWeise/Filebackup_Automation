@@ -1,5 +1,6 @@
 # === Specific files / folders ===
-src/custom_exceptions.py
+cmd/docs/*
+!cmd/docs/*.pdf
 
 # === Python ===
 # Byte-compiled / optimized / DLL files
