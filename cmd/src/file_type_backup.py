@@ -5,10 +5,12 @@ Last revision: 31.05.2021
 @author: Max Weise
 """
 
+import os
+
 from shutil import copy
 from os import listdir, walk, path
 
-from file_backup import File_Backup
+from src.file_backup import File_Backup
 
 class File_Type_Backup(File_Backup):
     """ This class can be used to backup files regarding 
@@ -58,10 +60,17 @@ class File_Type_Backup(File_Backup):
         """ Copy specified files matching the sorting-criterium
             from root to destination.
         """
+
+        if not os.path.exists(self.root):
+            raise ValueError
+
+        if os.path.isfile(self.root):
+            raise ValueError
+
         for root, dirs, files in walk(self.root):
             if len(files) > 0:
                 for f in self.__check_for_relevant_files(files):
-                    copy(path.join(root, f), self.dest)
+                    copy(os.path.join(root, f), self.dest)
 
 
 

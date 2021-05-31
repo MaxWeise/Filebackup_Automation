@@ -1,7 +1,7 @@
 """ Testmodule for file_type_backup.py
 
 created: 04.05.2021
-last revision: 28.05.2021
+last revision: 31.05.2021
 author: Max Weise
 """
 
@@ -86,12 +86,23 @@ class TestFile_Type_Backup(TestCase):
         self.assertEqual(len(os.listdir(self.__DESTIN_PATH)), (2 * self.__NUMBER_OF_FILES))
 
 
-    @unittest.skip('Will be implemented later')
-    def test_FileTypeBackup_RaisePathDoesNotExistError(self):
+    def test_FileTypeBackup_pathDoesNotExist(self):
         """ If a given path that does not exist, an error 
             should be thrown by the method.
         """
-        pass
+        self.f.set_root('does_not_exist')
+
+        with self.assertRaises(ValueError):
+            self.f.backup_file_types()
+
+    def test_FileTypeBackup_pathIsFile(self):
+        """ If a given path that is a file, an error 
+            should be thrown by the method.
+        """
+        self.f.set_root(os.path.join(self.__SOURCE_PATH, '0' + '_name.abcd'))
+
+        with self.assertRaises(ValueError):
+            self.f.backup_file_types()
 
 
     def tearDown(self):
