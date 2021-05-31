@@ -21,7 +21,7 @@ from src.file_type_backup import File_Type_Backup
 class TestFile_Type_Backup(TestCase):
     """ Test the Filebackupclass
 
-        @author
+        author
             Max Weise
     """
 
@@ -43,7 +43,9 @@ class TestFile_Type_Backup(TestCase):
 
 
     def setUp(self):
-        """ Create the directories and files needed for the test. Create an instance of File_Type_Backup"""
+        """ Create the directories and files needed for the 
+            test. Create an instance of File_Type_Backup.
+        """
         if not os.path.exists(self.__SOURCE_PATH):
             os.makedirs(self.__SOURCE_PATH)
 
@@ -65,7 +67,10 @@ class TestFile_Type_Backup(TestCase):
     
 
     def test_FileTypeBackup(self):
-        """ Test the main functionality of the class by copying all specified files to the intended directory."""
+        """ Test the main functionality of the class by 
+            copying all specified files to the intended 
+            directory.
+        """
 
         # First pass
         self.f.set__file_types(['txt'])
@@ -83,12 +88,16 @@ class TestFile_Type_Backup(TestCase):
 
     @unittest.skip('Will be implemented later')
     def test_FileTypeBackup_RaisePathDoesNotExistError(self):
-        """ If a given path does not exist, an error should be thrown by the method."""
+        """ If a given path that does not exist, an error 
+            should be thrown by the method.
+        """
         pass
 
 
     def tearDown(self):
-        """ Remove all files and directories used in the testing process. Remove the File_Type instance."""
+        """ Remove all files and directories used in the 
+            testing process. Remove the File_Type instance.
+        """
         source_files = os.listdir(self.__SOURCE_PATH)
         destin_files = os.listdir(self.__DESTIN_PATH)
 

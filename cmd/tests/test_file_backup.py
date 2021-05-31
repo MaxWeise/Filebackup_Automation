@@ -1,7 +1,7 @@
 """ Testmodule for file_backup.py
 
 created: 28.04.2021
-last revision: 04.05.2021
+last revision: 31.05.2021
 author: Max Weise
 """
 
@@ -13,7 +13,7 @@ author: Max Weise
 
 import os, unittest, sys
 
-from unittest import TestCase
+from unittest import TestCase, skip
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.file_backup import File_Backup
@@ -30,7 +30,9 @@ class TestFile_Backup(TestCase):
     __NUMBER_OF_FILES = 5
     
     def setUp(self):
-        """ Create the directories and files needed for the test. Create an instance of File_Backup"""
+        """ Create the directories and files needed for the 
+            test. Create an instance of File_Backup.
+        """
         if not os.path.exists(self.__SOURCE_PATH):
             os.makedirs(self.__SOURCE_PATH)
 
@@ -44,14 +46,26 @@ class TestFile_Backup(TestCase):
 
         self.f = File_Backup(self.__SOURCE_PATH, self.__DESTIN_PATH)
     
+
     def test_fileBackup(self):
-        """ Test if all files in self.SOURCE_PATH get copied correctly."""
+        """ Test if all files in self.SOURCE_PATH get copied 
+            correctly.
+        """
         self.f.backup_tree()
 
         self.assertEqual(len(os.listdir(self.__DESTIN_PATH)), self.__NUMBER_OF_FILES)
+
+
+    @skip('Implemented later')
+    def test_fileBackup_pathDoesNotExist(self):
+        pass
         
+
     def tearDown(self):
-        """ Remove all files and directories used in the testing process. Remove the File_Backup instance."""
+        """ Remove all files and directories used in the
+            testing process. Remove the File_Backup 
+            instance.
+        """
         source_files = os.listdir(self.__SOURCE_PATH)
         destin_files = os.listdir(self.__DESTIN_PATH)
 
