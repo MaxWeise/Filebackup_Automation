@@ -15,22 +15,26 @@ def main():
     print('Type\n1: File Backup\n2: File Type Backup\n3: Exit')
     print('-------------------------')
 
-    while (user_in := input(PROMT)) != '3':
-        if user_in == '1':
-            src = input('Src Path: ' + PROMT)
-            dst = input('Dst Path: ' + PROMT)
+    while (user_in := input(PROMT)).strip() != '3':
+        try:
+            if user_in == '1':
+                src = input('Src Path: ' + PROMT)
+                dst = input('Dst Path: ' + PROMT)
+    
+                f = File_Backup(src, dst)
+                f.backup_tree()
+    
+            elif user_in == '2':
+                src = input('Src Path: ' + PROMT)
+                dst = input('Dst Path: ' + PROMT)
+                ftp = input('File Types: ' + PROMT)
+    
+                f = File_Type_Backup(src, dst, ftp)
+                f.backup_file_types()
+        except Exception as e:
+            print(f'ERROR: {e.__str__()}')
 
-            f = File_Backup(src, dst)
-            f.backup_tree()
-
-        elif user_in == '2':
-            src = input('Src Path: ' + PROMT)
-            dst = input('Dst Path: ' + PROMT)
-            ftp = input('File Types: ' + PROMT)
-
-            f = File_Type_Backup(src, dst, ftp)
-            f.backup_file_types()
-
+    print('== Ending Programm ==')
 
 
 if __name__ == '__main__':

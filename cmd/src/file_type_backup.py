@@ -4,8 +4,8 @@ Created: 01.05.2021
 Last revision: 31.05.2021
 @author: Max Weise
 """
-
-import os
+import os, sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from shutil import copy
 from os import listdir, walk, path
@@ -62,10 +62,10 @@ class File_Type_Backup(File_Backup):
         """
 
         if not os.path.exists(self.root):
-            raise ValueError
+            raise ValueError('Root does not exist')
 
         if os.path.isfile(self.root):
-            raise ValueError
+            raise ValueError('Root can not be a file')
 
         for root, dirs, files in walk(self.root):
             if len(files) > 0:

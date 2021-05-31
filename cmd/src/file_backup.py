@@ -42,10 +42,10 @@ class File_Backup(object):
         """Copy recursivly from self.root to self.dest."""
 
         if not os.path.exists(self.root):
-            raise ValueError
+            raise ValueError('Root does not exist')
 
         if os.path.isfile(self.root):
-            raise ValueError
+            raise ValueError('Root can not be a file')
 
         copy_tree(self.root, self.dest)
 
