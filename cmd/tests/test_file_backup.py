@@ -56,10 +56,24 @@ class TestFile_Backup(TestCase):
         self.assertEqual(len(os.listdir(self.__DESTIN_PATH)), self.__NUMBER_OF_FILES)
 
 
-    @skip('Implemented later')
     def test_fileBackup_pathDoesNotExist(self):
-        pass
+        """ Raise an error if the src path given 
+            does not exist.
+        """
+        self.f.set_root('does_not_exist')
+
+        with self.assertRaises(ValueError):
+            self.f.backup_tree()
         
+    def test_fileBackup_pathIsFile(self):
+        """ Raise an error if the gieven path
+            is a file instead of a directory.
+        """
+        self.f.set_root(os.path.join(self.__SOURCE_PATH, '0' + '_name.txt'))
+
+        with self.assertRaises(ValueError):
+            self.f.backup_tree()
+
 
     def tearDown(self):
         """ Remove all files and directories used in the

@@ -6,6 +6,7 @@ Last revision: 28.05.2021
 @author: Max Weise
 """
 
+import os
 from distutils.dir_util import copy_tree
 
 class File_Backup(object):
@@ -39,6 +40,13 @@ class File_Backup(object):
 
     def backup_tree(self) -> None:
         """Copy recursivly from self.root to self.dest."""
+
+        if not os.path.exists(self.root):
+            raise ValueError
+
+        if os.path.isfile(self.root):
+            raise ValueError
+
         copy_tree(self.root, self.dest)
 
 
