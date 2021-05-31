@@ -9,7 +9,8 @@ Last revision: 28.05.2021
 from distutils.dir_util import copy_tree
 
 class File_Backup(object):
-    """ Backup all files / directories in specified root dir to a specified destination
+    """ Backup all files / directories in specified root 
+        dir to a specified destination.
         
         @params 
             root: str - root directory
@@ -19,7 +20,10 @@ class File_Backup(object):
             Max Weise
     """
     def __init__(self, root: str, destination: str):
-        """Initialize File_Backup object by giving it a rootdirectory to copy from and a destination to copy to. """
+        """Initialize File_Backup object by giving it a 
+            rootdirectory to copy from and a destination 
+            to copy to.
+        """
         self.root = root
         self.dest = destination
 
@@ -34,10 +38,13 @@ class File_Backup(object):
 
 
     def backup_tree(self) -> None:
-        """Copy recursivly from self.root to self.dest. """
+        """Copy recursivly from self.root to self.dest."""
         copy_tree(self.root, self.dest)
 
 
     def __str__(self) -> str:
-        """Print a humanly readable representation to the console. """
+        """Print a humanly readable representation 
+            to the console.
+        """
         return f'Backing up {self.root} into {self.dest}'
+
