@@ -8,13 +8,13 @@ import os, sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from shutil import copy
-from os import listdir, walk, path
 
 from src.file_backup import File_Backup
 
+
 class File_Type_Backup(File_Backup):
-    """ This class can be used to backup files regarding 
-        their types (file endings '.xxx'). 
+    """ This class can be used to backup files regarding
+        their types (file endings '.xxx').
 
         @params
             root:         str  - root directory
@@ -26,12 +26,11 @@ class File_Type_Backup(File_Backup):
     """
 
     def __init__(self, root, destination, __file_types):
-        """ Initialize object by giving it root, destination 
+        """ Initialize object by giving it root, destination
             and file types to copy.
         """
         super().__init__(root, destination)
         self.__file_types = __file_types
-
 
     def set__file_types(self, new_file_types: list) -> None:
         """ Set the attribute __file_types to a specified list.
@@ -43,7 +42,6 @@ class File_Type_Backup(File_Backup):
         """ Get the contents of the __file_types attribute."""
         return self.__file_types
 
-        
     def __check_for_relevant_files(self, list_to_check: list) -> list:
         """ Search a given list of files for files with relevant
             filetypes.
@@ -54,7 +52,6 @@ class File_Type_Backup(File_Backup):
                 return_list.append(f)
 
         return return_list
-            
 
     def backup_file_types(self) -> None:
         """ Copy specified files matching the sorting-criterium
@@ -67,7 +64,7 @@ class File_Type_Backup(File_Backup):
         if os.path.isfile(self.root):
             raise ValueError('Root can not be a file')
 
-        for root, dirs, files in walk(self.root):
+        for root, dirs, files in os.walk(self.root):
             if len(files) > 0:
                 for f in self.__check_for_relevant_files(files):
                     copy(os.path.join(root, f), self.dest)

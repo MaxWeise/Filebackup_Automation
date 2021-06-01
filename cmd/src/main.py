@@ -12,7 +12,10 @@ from tkinter import filedialog
 from file_backup import File_Backup
 from file_type_backup import File_Type_Backup
 
-PROMT = '>>> '
+__PROMT = '>>> '
+__SCR_DIALOG = 'Choose Source Path'
+__DST_DIALOG = 'Choose Destination Path'
+
 
 def main():
     print('-------------------------')
@@ -21,22 +24,23 @@ def main():
 
     root = tkinter.Tk()
 
-    while (user_in := input(PROMT)).strip() != '3':
+    while (user_in := input(__PROMT)).strip() != '3':
         try:
             if user_in == '1':
-                src = filedialog.askdirectory(parent=root, title='Choose Source Path')
-                dst = filedialog.askdirectory(parent=root, title='Choose Destination Path')
-    
+                src = filedialog.askdirectory(parent=root, title=__SCR_DIALOG)
+                dst = filedialog.askdirectory(parent=root, title=__DST_DIALOG)
+
                 f = File_Backup(src, dst)
                 f.backup_tree()
-    
+
             elif user_in == '2':
-                src = filedialog.askdirectory(parent=root, title='Choose Source Path')
-                dst = filedialog.askdirectory(parent=root, title='Choose Destination Path')
-                ftp = input('File Types: ' + PROMT)
-    
+                src = filedialog.askdirectory(parent=root, title=__SCR_DIALOG)
+                dst = filedialog.askdirectory(parent=root, title=__DST_DIALOG)
+                ftp = input('File Types: ' + __PROMT)
+
                 f = File_Type_Backup(src, dst, ftp)
                 f.backup_file_types()
+
         except Exception as e:
             print(f'ERROR: {e.__str__()}')
 
