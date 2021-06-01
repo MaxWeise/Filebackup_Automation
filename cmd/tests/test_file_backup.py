@@ -5,18 +5,14 @@ last revision: 31.05.2021
 author: Max Weise
 """
 
-# NOTE: Naming convention, <> = Identifier, [] = Optional Description - If empty, test for 'normal' run
-# For Classes: Test<Name>(TestCase)
-# For Methods: def test_<nameInCamelCase>_[ExpectedConditions](self)
-
-# Execute using $ python -m unittest -v test_module.TestClass.test_method    
 
 import os, unittest, sys
 
-from unittest import TestCase, skip
+from unittest import TestCase
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.file_backup import File_Backup
+
 
 class TestFile_Backup(TestCase):
     """ Test the Filebackupclass
@@ -25,12 +21,12 @@ class TestFile_Backup(TestCase):
             Max Weise
     """
 
-    __SOURCE_PATH = 'test_source' 
+    __SOURCE_PATH = 'test_source'
     __DESTIN_PATH = 'test_destin'
     __NUMBER_OF_FILES = 5
-    
+
     def setUp(self):
-        """ Create the directories and files needed for the 
+        """ Create the directories and files needed for the
             test. Create an instance of File_Backup.
         """
         if not os.path.exists(self.__SOURCE_PATH):
@@ -41,30 +37,29 @@ class TestFile_Backup(TestCase):
 
         for i in range(self.__NUMBER_OF_FILES):
             file_path = os.path.join(self.__SOURCE_PATH, str(i) + '_name.txt')
-            with open(file_path, 'w+') as f:    # Write empty files
+            with open(file_path, 'w+'):    # Write empty files
                 pass
 
         self.f = File_Backup(self.__SOURCE_PATH, self.__DESTIN_PATH)
-    
 
     def test_fileBackup(self):
-        """ Test if all files in self.SOURCE_PATH get copied 
+        """ Test if all files in self.SOURCE_PATH get copied
             correctly.
         """
         self.f.backup_tree()
 
-        self.assertEqual(len(os.listdir(self.__DESTIN_PATH)), self.__NUMBER_OF_FILES)
-
+        actual_file_number = len(os.listdir(self.__DESTIN_PATH))
+        self.assertEqual(actual_file_number, self.__NUMBER_OF_FILES)
 
     def test_fileBackup_pathDoesNotExist(self):
-        """ Raise an error if the src path given 
+        """ Raise an error if the src path given
             does not exist.
         """
         self.f.set_root('does_not_exist')
 
         with self.assertRaises(ValueError):
             self.f.backup_tree()
-        
+
     def test_fileBackup_pathIsFile(self):
         """ Raise an error if the gieven path
             is a file instead of a directory.
@@ -74,10 +69,9 @@ class TestFile_Backup(TestCase):
         with self.assertRaises(ValueError):
             self.f.backup_tree()
 
-
     def tearDown(self):
         """ Remove all files and directories used in the
-            testing process. Remove the File_Backup 
+            testing process. Remove the File_Backup
             instance.
         """
         source_files = os.listdir(self.__SOURCE_PATH)
@@ -88,11 +82,12 @@ class TestFile_Backup(TestCase):
 
         for f in destin_files:
             os.remove(os.path.join(self.__DESTIN_PATH, f))
-        
+
         os.rmdir(self.__SOURCE_PATH)
         os.rmdir(self.__DESTIN_PATH)
 
         del self.f
+
 
 if __name__ == '__main__':
     unittest.main()
