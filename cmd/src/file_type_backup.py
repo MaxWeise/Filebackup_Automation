@@ -1,17 +1,15 @@
 """ Class to backup specified filetypes
 
 Created: 01.05.2021
-Last revision: 02.06.2021
+Last revision: 03.06.2021
 @author: Max Weise
 """
 import os
 
 from shutil import copy
 
-from .file_backup import File_Backup
 
-
-class File_Type_Backup(File_Backup):
+class File_Type_Backup(object):
     """ This class can be used to backup files regarding
         their types (file endings '.xxx').
 
@@ -28,8 +26,25 @@ class File_Type_Backup(File_Backup):
         """ Initialize object by giving it root, destination
             and file types to copy.
         """
-        super().__init__(root, destination)
+        self.__root = root
+        self.__dest = destination
         self.__file_types = file_types
+
+    def set_root(self, new_root: str) -> None:
+        """ Set the root attribute to a new root."""
+        self.__root = new_root
+
+    def get_root(self) -> str:
+        """ Return the root attribute."""
+        return self.__root
+
+    def set_dest(self, new_dest: str) -> None:
+        """ Set the dest attribute to a new dest."""
+        self.__dest = new_dest
+
+    def get_dest(self) -> str:
+        """ Get the contents of the __file_types attribute."""
+        return self.__dest
 
     def set__file_types(self, new_file_types: list) -> None:
         """ Set the attribute __file_types to a specified list.
@@ -62,6 +77,4 @@ class File_Type_Backup(File_Backup):
             if len(files) > 0:
                 for f in self.__check_for_relevant_files(files):
                     copy(os.path.join(root, f), self.dest)
-
-
 
