@@ -45,12 +45,7 @@ class File_Type_Backup(File_Backup):
         """ Search a given list of files for files with relevant
             filetypes.
         """
-        return_list = []
-        for f in list_to_check:
-            if f.split('.')[-1] in self.__file_types:
-                return_list.append(f)
-
-        return return_list
+        return [f for f in list_to_check if f.split('.')[-1] in self.__file_types]
 
     def backup_file_types(self) -> None:
         """ Copy specified files matching the sorting-criterium
