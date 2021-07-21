@@ -10,8 +10,10 @@ Last revision: 28.05.2021
 import os
 from distutils.dir_util import copy_tree
 
+from .backup import Backup
 
-class File_Backup(object):
+
+class File_Backup(Backup):
     """ Backup all files / directories in specified root
         dir to a specified destination.
 
@@ -38,7 +40,7 @@ class File_Backup(object):
         """ Set the dest attribute of an instance."""
         self.dest = new_dest
 
-    def backup_tree(self) -> None:
+    def backup(self) -> None:
         """Copy recursivly from self.root to self.dest."""
 
         if not os.path.exists(self.root):

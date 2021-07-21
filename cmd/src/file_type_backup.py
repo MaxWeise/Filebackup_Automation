@@ -8,8 +8,10 @@ import os
 
 from shutil import copy
 
+from .backup import Backup
 
-class File_Type_Backup(object):
+
+class File_Type_Backup(Backup):
     """ This class can be used to backup files regarding
         their types (file endings '.xxx').
 
@@ -62,19 +64,24 @@ class File_Type_Backup(object):
         """
         return [f for f in list_to_check if f.split('.')[-1] in self.__file_types]
 
-    def backup_file_types(self) -> None:
+    def backup(self) -> None:
         """ Copy specified files matching the sorting-criterium
             from root to destination.
         """
 
-        if not os.path.exists(self.root):
+        if not os.path.exists(self.get_root()):
             raise ValueError('Root does not exist')
 
-        if os.path.isfile(self.root):
+        if os.path.isfile(self.get_root()):
             raise ValueError('Root can not be a file')
 
-        for root, dirs, files in os.walk(self.root):
+        for root, dirs, files in os.walk(self.get_root()):
             if len(files) > 0:
                 for f in self.__check_for_relevant_files(files):
-                    copy(os.path.join(root, f), self.dest)
+                    copy(os.path.join(self.get_root(), f), self.get_dest())
 
+    def __str__(self) -> str:
+        """Print a humanly readable representation
+            to the console.
+        """
+        return f'Backing up {self.root} into {self.dest} using {self.__file_types}'
