@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """ Testmodule for file_backup.py
 
 created: 28.04.2021
@@ -46,7 +47,7 @@ class TestFile_Backup(TestCase):
         """ Test if all files in self.SOURCE_PATH get copied
             correctly.
         """
-        self.f.backup_tree()
+        self.f.backup()
 
         actual_file_number = len(os.listdir(self.__DESTIN_PATH))
         self.assertEqual(actual_file_number, self.__NUMBER_OF_FILES)
@@ -58,7 +59,7 @@ class TestFile_Backup(TestCase):
         self.f.set_root('does_not_exist')
 
         with self.assertRaises(ValueError):
-            self.f.backup_tree()
+            self.f.backup()
 
     def test_fileBackup_pathIsFile(self):
         """ Raise an error if the gieven path
@@ -67,7 +68,7 @@ class TestFile_Backup(TestCase):
         self.f.set_root(os.path.join(self.__SOURCE_PATH, '0' + '_name.txt'))
 
         with self.assertRaises(ValueError):
-            self.f.backup_tree()
+            self.f.backup()
 
     def tearDown(self):
         """ Remove all files and directories used in the

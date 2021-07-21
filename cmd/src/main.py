@@ -1,13 +1,14 @@
 """ Automatically backup files
 
 Created on: 27.01.2021
-Last revision: 31.05.2021
+Last revision: 20.07.2021
 @author: Max Weise
 """
 
 import tkinter
 
 from tkinter import filedialog
+from distutils.dir_util import copy_file
 
 from file_backup import File_Backup
 from file_type_backup import File_Type_Backup
@@ -16,7 +17,6 @@ __PROMT = '>>> '
 __SCR_DIALOG = 'Choose Source Path'
 __DST_DIALOG = 'Choose Destination Path'
 __FIL_DIALOG = 'Choose your file(s)'
-
 
 def main():
     print('-------------------------')
@@ -28,33 +28,31 @@ def main():
 
     while (user_in := input(__PROMT)).strip() != '4':
         try:
-            if user_in == '1':
-                src = filedialog.askdirectory(parent=root, title=__SCR_DIALOG)
-                dst = filedialog.askdirectory(parent=root, title=__DST_DIALOG)
 
+            src = filedialog.askdirectory(parent=root, title=__SCR_DIALOG)
+            dst = filedialog.askdirectory(parent=root, title=__DST_DIALOG)
+
+            if user_in == '1':
                 f = File_Backup(src, dst)
-                f.backup_tree()
 
             elif user_in == '2':
-                src = filedialog.askdirectory(parent=root, title=__SCR_DIALOG)
-                dst = filedialog.askdirectory(parent=root, title=__DST_DIALOG)
                 ftp = input('File Types: ' + __PROMT)
-
                 f = File_Type_Backup(src, dst, ftp)
-                f.backup_file_types()
 
             elif user_in == '3':
-                src = filedialog.askopenfiles(mode='r', parent=root, title=__FIL_DIALOG)
-                dst = filedialog.askdirectory(parent=root, title=__DST_DIALOG)
-                for f in src:
-                    print(f.name)
+                singel_file_src = filedialog.askopenfiles(mode='r', parent=root, title=__FIL_DIALOG)
+                singel_file_dst = filedialog.askdirectory(parent=root, title=__DST_DIALOG)
+                for f in singel_file_src:
+                    copy_file(singel_file_src, singel_file_dst)
+
+            f.backup()
 
         except Exception as e:
             print(f'ERROR: {e.__str__()}')
 
         except KeyboardInterrupt as e:
             print(f'{e.__str__()}')
-            break
+            quit()   # Exit the loop on ctrl-c
 
     print('== Ending Programm ==')
 

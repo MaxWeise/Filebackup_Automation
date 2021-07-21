@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """ Testmodule for file_type_backup.py
 
 created: 04.05.2021
@@ -68,7 +69,7 @@ class TestFile_Type_Backup(TestCase):
 
         # First pass
         self.f.set__file_types(['txt'])
-        self.f.backup_file_types()
+        self.f.backup()
 
         actual_num_of_files = len(os.listdir(self.__DESTIN_PATH))
 
@@ -79,7 +80,7 @@ class TestFile_Type_Backup(TestCase):
 
         # Second pass
         self.f.set__file_types(['abcd'])
-        self.f.backup_file_types()
+        self.f.backup()
 
         actual_num_of_files = len(os.listdir(self.__DESTIN_PATH))
         self.assertEqual(actual_num_of_files, (2 * self.__NUMBER_OF_FILES))
@@ -91,7 +92,7 @@ class TestFile_Type_Backup(TestCase):
         self.f.set_root('does_not_exist')
 
         with self.assertRaises(ValueError):
-            self.f.backup_file_types()
+            self.f.backup()
 
     def test_FileTypeBackup_pathIsFile(self):
         """ If a given path that is a file, an error
@@ -100,7 +101,7 @@ class TestFile_Type_Backup(TestCase):
         self.f.set_root(os.path.join(self.__SOURCE_PATH, '0' + '_name.abcd'))
 
         with self.assertRaises(ValueError):
-            self.f.backup_file_types()
+            self.f.backup()
 
     def tearDown(self):
         """ Remove all files and directories used in the

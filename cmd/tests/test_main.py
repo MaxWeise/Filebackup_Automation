@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """ Testmodule for main.py
 
 created: 03.06.2021
