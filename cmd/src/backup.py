@@ -5,9 +5,8 @@ Last revision: 20.07.2021
 @author: Max Weise
 """
 
-import os
-from distutils.dir_util import copy_tree
 from abc import ABC, abstractmethod
+
 
 class Backup(ABC):
     """ Define an abstract base class for the other procedures

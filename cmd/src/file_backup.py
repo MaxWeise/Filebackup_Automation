@@ -23,7 +23,7 @@ class File_Backup(Backup):
 
         @author
             Max Weise
-    """ 
+    """
     def __init__(self, root: str, destination: str):
         """Initialize File_Backup object by giving it a
             rootdirectory to copy from and a destination

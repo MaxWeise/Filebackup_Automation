@@ -10,6 +10,7 @@ from shutil import copy
 
 from .backup import Backup
 
+
 class File_Type_Backup(Backup):
     """ This class can be used to backup files regarding
         their types (file endings '.xxx').
