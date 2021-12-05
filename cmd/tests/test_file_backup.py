@@ -2,7 +2,6 @@
 """ Testmodule for file_backup.py
 
 created: 28.04.2021
-last revision: 31.05.2021
 author: Max Weise
 """
 
