@@ -3,7 +3,6 @@
     will be keept.
 
 Created: 15.02.2021
-Last revision: 28.05.2021
 @author: Max Weise
 """
 
@@ -52,7 +51,7 @@ class File_Backup(Backup):
         copy_tree(self.root, self.dest)
 
     def __str__(self) -> str:
-        """Print a humanly readable representation
+        """ Print a humanly readable representation
             to the console.
         """
         return f'Backing up {self.root} into {self.dest}'
