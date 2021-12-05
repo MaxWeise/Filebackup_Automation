@@ -1,7 +1,6 @@
 """ Class to backup specified filetypes
 
 Created: 01.05.2021
-Last revision: 03.06.2021
 @author: Max Weise
 """
 import os
@@ -65,9 +64,7 @@ class File_Type_Backup(Backup):
         return [f for f in list_to_check if f.split('.')[-1] in self.__file_types]
 
     def backup(self) -> None:
-        """ Copy specified files matching the sorting-criterium
-            from root to destination.
-        """
+        """ Copy specified files matching the sorting-criterium from root to destination."""
 
         if not os.path.exists(self.get_root()):
             raise ValueError('Root does not exist')
@@ -75,13 +72,11 @@ class File_Type_Backup(Backup):
         if os.path.isfile(self.get_root()):
             raise ValueError('Root can not be a file')
 
-        for root, dirs, files in os.walk(self.get_root()):
+        for _, _, files in os.walk(self.get_root()):
             if len(files) > 0:
                 for f in self.__check_for_relevant_files(files):
                     copy(os.path.join(self.get_root(), f), self.get_dest())
 
     def __str__(self) -> str:
-        """Print a humanly readable representation
-            to the console.
-        """
+        """ Print a humanly readable representation to the console."""
         return f'Backing up {self.root} into {self.dest} using {self.__file_types}'
