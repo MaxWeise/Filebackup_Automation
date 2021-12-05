@@ -61,7 +61,7 @@ class TestFile_Type_Backup(TestCase):
 
         self.f = File_Type_Backup(self.__SOURCE_PATH, self.__DESTIN_PATH, None)
 
-    def test_FileTypeBackup(self):
+    def test_FileTypeBackup(self):  # sourcery skip: extract-duplicate-method
         """ Test the main functionality of the class by
             copying all specified files to the intended
             directory.

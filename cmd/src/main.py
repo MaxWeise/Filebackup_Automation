@@ -13,19 +13,20 @@ from distutils.dir_util import copy_file
 from file_backup import File_Backup
 from file_type_backup import File_Type_Backup
 
-__PROMT = '>>> '
-__SCR_DIALOG = 'Choose Source Path'
-__DST_DIALOG = 'Choose Destination Path'
-__FIL_DIALOG = 'Choose your file(s)'
-
 
 def main():
-    print('-------------------------')
-    print('Type\n1: File Backup\n2: File Type Backup\n3: Pick Specific Files\n4: Exit')
-    print('-------------------------')
+    # Setup all needed variables
+    __PROMT = '>>> '
+    __SCR_DIALOG = 'Choose Source Path'
+    __DST_DIALOG = 'Choose Destination Path'
+    __FIL_DIALOG = 'Choose your file(s)'
 
     root = tkinter.Tk()
     root.withdraw()     # tkinter window won't be shown all the time
+
+    print('-------------------------')
+    print('Type\n1: File Backup\n2: File Type Backup\n3: Pick Specific Files\n4: Exit')
+    print('-------------------------')
 
     while (user_in := input(__PROMT)).strip() != '4':
         try:
