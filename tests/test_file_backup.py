@@ -6,12 +6,12 @@ author: Max Weise
 """
 
 
-import os, unittest, sys
+import os, unittest
 
 from unittest import TestCase
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from src.file_backup import File_Backup
+# sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from backup_script.file_backup import File_Backup
 
 
 class TestFile_Backup(TestCase):
