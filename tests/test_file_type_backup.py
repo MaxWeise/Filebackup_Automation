@@ -5,12 +5,11 @@ created: 04.05.2021
 author: Max Weise
 """
 
-import os, unittest, sys
+import os, unittest
 
 from unittest import TestCase
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from src.file_type_backup import File_Type_Backup
+from backup_script.file_type_backup import File_Type_Backup
 
 
 class TestFile_Type_Backup(TestCase):

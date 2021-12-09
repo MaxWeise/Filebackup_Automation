@@ -10,7 +10,6 @@ import os, unittest
 
 from unittest import TestCase
 
-# sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from backup_script.file_backup import File_Backup
 
 

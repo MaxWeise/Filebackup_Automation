@@ -13,18 +13,7 @@ class Backup(ABC):
         @params
             root: str - root directory
             destination: str - copy to destination
-
-        @author
-            Max Weise
     """
-
-    @abstractmethod
-    def set_root(self, new_root: str) -> None:
-        """ Set the root attribute of an instance."""
-
-    @abstractmethod
-    def set_dest(self, new_dest: str) -> None:
-        """ Set the dest attribute of an instance."""
 
     @abstractmethod
     def backup(self) -> None:

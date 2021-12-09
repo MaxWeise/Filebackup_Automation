@@ -18,9 +18,6 @@ class File_Type_Backup(Backup):
             root:         str  - root directory
             destination:  str  - destination directory
             __file_types: list - filetyes to backup
-
-        @author
-            Max Weise
     """
 
     def __init__(self, root: str, destination: str, file_types: list):

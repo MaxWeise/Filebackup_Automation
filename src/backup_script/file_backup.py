@@ -19,12 +19,9 @@ class File_Backup(Backup):
         @params
             root: str - root directory
             destination: str - copy to destination
-
-        @author
-            Max Weise
     """
     def __init__(self, root: str, destination: str):
-        """Initialize File_Backup object by giving it a
+        """ Initialize File_Backup object by giving it a
             rootdirectory to copy from and a destination
             to copy to.
         """
@@ -40,7 +37,7 @@ class File_Backup(Backup):
         self.dest = new_dest
 
     def backup(self) -> None:
-        """Copy recursivly from self.root to self.dest."""
+        """ Copy recursivly from self.root to self.dest."""
 
         if not os.path.exists(self.root):
             raise ValueError('Root does not exist')
