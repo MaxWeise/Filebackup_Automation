@@ -42,19 +42,15 @@ class TestFile_Backup(TestCase):
         self.f = File_Backup(self.__SOURCE_PATH, self.__DESTIN_PATH)
 
     def test_fileBackup(self):
-        """ Test if all files in self.SOURCE_PATH get copied
-            correctly.
-        """
+        """ Test if all files in self.SOURCE_PATH get copied correctly."""
         self.f.backup()
 
         actual_file_number = len(os.listdir(self.__DESTIN_PATH))
         self.assertEqual(actual_file_number, self.__NUMBER_OF_FILES)
 
     def test_fileBackup_pathDoesNotExist(self):
-        """ Raise an error if the src path given
-            does not exist.
-        """
-        self.f.set_root('does_not_exist')
+        """ Raise an error if the src path given does not exist."""
+        self.f.set_source('does_not_exist')
 
         with self.assertRaises(ValueError):
             self.f.backup()
@@ -63,7 +59,7 @@ class TestFile_Backup(TestCase):
         """ Raise an error if the gieven path
             is a file instead of a directory.
         """
-        self.f.set_root(os.path.join(self.__SOURCE_PATH, '0' + '_name.txt'))
+        self.f.set_source(os.path.join(self.__SOURCE_PATH, '0' + '_name.txt'))
 
         with self.assertRaises(ValueError):
             self.f.backup()
