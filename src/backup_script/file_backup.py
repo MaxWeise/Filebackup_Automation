@@ -20,36 +20,36 @@ class File_Backup(Backup):
             root: str - root directory
             destination: str - copy to destination
     """
-    def __init__(self, root: str, destination: str):
+    def __init__(self, source: str, destination: str):
         """ Initialize File_Backup object by giving it a
             rootdirectory to copy from and a destination
             to copy to.
         """
-        self.root = root
-        self.dest = destination
+        self.source = source
+        self.destination = destination
 
-    def set_root(self, new_root: str) -> None:
+    def set_root(self, new_source: str) -> None:
         """ Set the root attribute of an instance."""
-        self.root = new_root
+        self.source = new_source
 
-    def set_dest(self, new_dest: str) -> None:
+    def set_dest(self, new_destination: str) -> None:
         """ Set the dest attribute of an instance."""
-        self.dest = new_dest
+        self.destination = new_destination
 
     def backup(self) -> None:
         """ Copy recursivly from self.root to self.dest."""
 
-        if not os.path.exists(self.root):
+        if not os.path.exists(self.source):
             raise ValueError('Root does not exist')
 
-        if os.path.isfile(self.root):
+        if os.path.isfile(self.source):
             raise ValueError('Root can not be a file')
 
-        copy_tree(self.root, self.dest)
+        copy_tree(self.source, self.destination)
 
-    def __str__(self) -> str:
-        """ Print a humanly readable representation
-            to the console.
-        """
-        return f'Backing up {self.root} into {self.dest}'
+    # def __str__(self) -> str:
+    #     """ Print a humanly readable representation
+    #         to the console.
+    #     """
+    #     return f'Backing up {self.root} into {self.dest}'
 

@@ -1,4 +1,4 @@
-""" Abstract baseclass for filebackup and file_type_backup
+""" Abstract baseclass for file_backup and file_type_backup
 
 Created: 20.07.2021
 @author: Max Weise
@@ -19,8 +19,9 @@ class Backup(ABC):
     def backup(self) -> None:
         """ Copy recursivly from self.root to self.dest."""
 
-    @abstractmethod
-    def __str__(self) -> str:
-        """ Print a humanly readable representation
-            to the console.
-        """
+    # ! Remove. No longer needed when using loggers.
+    # // @abstractmethod
+    # // def __str__(self) -> str:
+    # //     """ Print a humanly readable representation
+    # //         to the console.
+    # //     """

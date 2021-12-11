@@ -7,7 +7,7 @@ import os
 
 from shutil import copy
 
-from .backup import Backup
+from backup_script.backup import Backup
 
 
 class File_Type_Backup(Backup):
@@ -20,29 +20,29 @@ class File_Type_Backup(Backup):
             __file_types: list - filetyes to backup
     """
 
-    def __init__(self, root: str, destination: str, file_types: list):
+    def __init__(self, source: str, destination: str, file_types: list):
         """ Initialize object by giving it root, destination
             and file types to copy.
         """
-        self.__root = root
-        self.__dest = destination
+        self.__source = source
+        self.__destination = destination
         self.__file_types = file_types
 
-    def set_root(self, new_root: str) -> None:
+    def set_root(self, new_source: str) -> None:
         """ Set the root attribute to a new root."""
-        self.__root = new_root
+        self.__source = new_source
 
     def get_root(self) -> str:
         """ Return the root attribute."""
-        return self.__root
+        return self.__source
 
-    def set_dest(self, new_dest: str) -> None:
+    def set_dest(self, new_destination: str) -> None:
         """ Set the dest attribute to a new dest."""
-        self.__dest = new_dest
+        self.__destination = new_destination
 
     def get_dest(self) -> str:
         """ Get the contents of the __file_types attribute."""
-        return self.__dest
+        return self.__destination
 
     def set__file_types(self, new_file_types: list) -> None:
         """ Set the attribute __file_types to a specified list.
@@ -74,6 +74,6 @@ class File_Type_Backup(Backup):
                 for f in self.__check_for_relevant_files(files):
                     copy(os.path.join(self.get_root(), f), self.get_dest())
 
-    def __str__(self) -> str:
-        """ Print a humanly readable representation to the console."""
-        return f'Backing up {self.root} into {self.dest} using {self.__file_types}'
+    # def __str__(self) -> str:
+    #     """ Print a humanly readable representation to the console."""
+    #     return f'Backing up {self.root} into {self.dest} using {self.__file_types}'
