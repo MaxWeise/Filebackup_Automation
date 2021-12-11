@@ -30,7 +30,7 @@ class TestFile_Type_Backup(TestCase):
 
         for string in files_in_dir:
             file_extention = string.split('.')
-            if file_extention[-1] not in self.f.get__file_types():
+            if file_extention[-1] not in self.f.get_file_types():
                 all_files_correct = False
 
         return all_files_correct
@@ -60,13 +60,10 @@ class TestFile_Type_Backup(TestCase):
         self.f = File_Type_Backup(self.__SOURCE_PATH, self.__DESTIN_PATH, None)
 
     def test_FileTypeBackup(self):  # sourcery skip: extract-duplicate-method
-        """ Test the main functionality of the class by
-            copying all specified files to the intended
-            directory.
-        """
+        """ Test the main functionality of the class by copying all specified files to the intended directory."""
 
         # First pass
-        self.f.set__file_types(['txt'])
+        self.f.set_file_types(['txt'])
         self.f.backup()
 
         actual_num_of_files = len(os.listdir(self.__DESTIN_PATH))
@@ -77,7 +74,7 @@ class TestFile_Type_Backup(TestCase):
         self.assertTrue(self.__check_for_correct_files(self.f))
 
         # Second pass
-        self.f.set__file_types(['abcd'])
+        self.f.set_file_types(['abcd'])
         self.f.backup()
 
         actual_num_of_files = len(os.listdir(self.__DESTIN_PATH))
@@ -87,7 +84,7 @@ class TestFile_Type_Backup(TestCase):
         """ If a given path that does not exist, an error
             should be thrown by the method.
         """
-        self.f.set_root('does_not_exist')
+        self.f.set_source('does_not_exist')
 
         with self.assertRaises(ValueError):
             self.f.backup()
@@ -96,7 +93,7 @@ class TestFile_Type_Backup(TestCase):
         """ If a given path that is a file, an error
             should be thrown by the method.
         """
-        self.f.set_root(os.path.join(self.__SOURCE_PATH, '0' + '_name.abcd'))
+        self.f.set_source(os.path.join(self.__SOURCE_PATH, '0' + '_name.abcd'))
 
         with self.assertRaises(ValueError):
             self.f.backup()
