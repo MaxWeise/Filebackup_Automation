@@ -15,13 +15,18 @@ class Backup(ABC):
             destination: str - copy to destination
     """
 
+    source: str
+    destination: str
+
+    # TODO: Implement the setters, so instances of both subclasses can use them
+    def set_source(self, source) -> None:
+        """ Set the source attribute of an instance"""
+        self.source = source
+
+    def set_destination(self, destination) -> None:
+        """ Set the destination attribute of an instance"""
+        self.destination = destination
+
     @abstractmethod
     def backup(self) -> None:
         """ Copy recursivly from self.root to self.dest."""
-
-    # ! Remove. No longer needed when using loggers.
-    # // @abstractmethod
-    # // def __str__(self) -> str:
-    # //     """ Print a humanly readable representation
-    # //         to the console.
-    # //     """
