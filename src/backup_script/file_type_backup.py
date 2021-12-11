@@ -17,18 +17,16 @@ class File_Type_Backup(Backup):
         @params
             source:         str  - source directory
             destination:    str  - destination directory
-            file_types:   list - filetyes to backup
+            file_types:     list - filetyes to backup
     """
 
     source: str
     destination: str
     file_types: list[str]
 
-    # TODO: Refactor the constructor to an empty one
     def __init__(self, source: str = None, destination: str = None, file_types: list = None):
-        """ Initialize object by giving it source, destination
-            and file types to copy.
-        """
+        """ Initialize object by giving it source, destination and file types to copy."""
+
         if source:
             self.source = source
 
@@ -43,7 +41,7 @@ class File_Type_Backup(Backup):
         return self.source
 
     def get_dest(self) -> str:
-        """ Get the contents of the __file_types attribute."""
+        """ Returns the set destination"""
         return self.destination
 
     def set_file_types(self, new_file_types: list) -> None:
@@ -55,7 +53,7 @@ class File_Type_Backup(Backup):
         return self.file_types
 
     def __check_for_relevant_files(self, list_to_check: list) -> list:
-        """ Search a given list of files for files with relevant filetypes."""
+        """ Search a given list of files for relevant filetypes."""
         return [f for f in list_to_check if f.split('.')[-1] in self.file_types]
 
     def backup(self) -> None:

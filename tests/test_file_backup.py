@@ -14,20 +14,15 @@ from backup_script.file_backup import File_Backup
 
 
 class TestFile_Backup(TestCase):
-    """ Test the Filebackupclass
-
-        @author
-            Max Weise
-    """
+    """ Test the Filebackupclass"""
 
     __SOURCE_PATH = 'test_source'
     __DESTIN_PATH = 'test_destin'
     __NUMBER_OF_FILES = 5
 
     def setUp(self):
-        """ Create the directories and files needed for the
-            test. Create an instance of File_Backup.
-        """
+        """ Create the directories and files needed for the test. Create an instance of File_Backup."""
+
         if not os.path.exists(self.__SOURCE_PATH):
             os.makedirs(self.__SOURCE_PATH)
 
@@ -43,32 +38,31 @@ class TestFile_Backup(TestCase):
 
     def test_fileBackup(self):
         """ Test if all files in self.SOURCE_PATH get copied correctly."""
+        
         self.f.backup()
 
         actual_file_number = len(os.listdir(self.__DESTIN_PATH))
         self.assertEqual(actual_file_number, self.__NUMBER_OF_FILES)
 
     def test_fileBackup_pathDoesNotExist(self):
-        """ Raise an error if the src path given does not exist."""
+        """ Raise an error if the source path given does not exist."""
+
         self.f.set_source('does_not_exist')
 
         with self.assertRaises(ValueError):
             self.f.backup()
 
     def test_fileBackup_pathIsFile(self):
-        """ Raise an error if the gieven path
-            is a file instead of a directory.
-        """
+        """ Raise an error if the given path is a file instead of a directory."""
+        
         self.f.set_source(os.path.join(self.__SOURCE_PATH, '0' + '_name.txt'))
 
         with self.assertRaises(ValueError):
             self.f.backup()
 
     def tearDown(self):
-        """ Remove all files and directories used in the
-            testing process. Remove the File_Backup
-            instance.
-        """
+        """ Remove all files and directories used in the testing process. Remove the File_Backup instance."""
+
         source_files = os.listdir(self.__SOURCE_PATH)
         destin_files = os.listdir(self.__DESTIN_PATH)
 

@@ -12,16 +12,6 @@ from backup_script.backup import Backup
 from backup_script.file_backup import File_Backup
 from backup_script.file_type_backup import File_Type_Backup
 
-''' Procedure:
- 1. Setup process
-    - Get sysargs
-    - set logging level
- 2. Open file picker
-    - Ask source
-    - Ask destination
-    [- Ask file types]
- 3. Call backup
-'''
 
 PROCEDURES = {
     'simple_backup' : File_Backup(),
@@ -78,7 +68,7 @@ def backup_object_factory(backup_procedure: str) -> Backup:
 
 
 def main():
-    """ Write main programm here"""
+    """ Main programm starts here"""
     # === Step one ===
     # Setup for argparse
     parser = argparse.ArgumentParser()
@@ -88,12 +78,6 @@ def main():
         help='Specify the procedure type',
         choises=list(PROCEDURES.keys())
     )
-
-    # // parser.add_argument(
-    # //     '-ft', '--filetype',
-    # //     help='Backing up specified file types',
-    # //     action='store_true'
-    # // )
 
     parser.add_argument(
         '-v', '--verbose',

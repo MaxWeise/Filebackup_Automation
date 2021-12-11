@@ -13,18 +13,15 @@ from backup_script.file_type_backup import File_Type_Backup
 
 
 class TestFile_Type_Backup(TestCase):
-    """ Test the Filebackupclass
-
-        author
-            Max Weise
-    """
+    """ Test the Filebackupclass"""
 
     __SOURCE_PATH = 'test_source'
     __DESTIN_PATH = 'test_destin'
     __NUMBER_OF_FILES = 5
 
-    # Auxiliary methods
     def __check_for_correct_files(self, f: File_Type_Backup) -> bool:
+        """ Auxiliary method which verifies that all copied files have indeed the correct file extention."""
+
         files_in_dir = os.listdir(self.__DESTIN_PATH)
         all_files_correct = True
 
@@ -36,9 +33,8 @@ class TestFile_Type_Backup(TestCase):
         return all_files_correct
 
     def setUp(self):
-        """ Create the directories and files needed for the
-            test. Create an instance of File_Type_Backup.
-        """
+        """ Create the directories and files needed for the test. Create an instance of File_Type_Backup."""
+
         if not os.path.exists(self.__SOURCE_PATH):
             os.makedirs(self.__SOURCE_PATH)
 
@@ -68,9 +64,7 @@ class TestFile_Type_Backup(TestCase):
 
         actual_num_of_files = len(os.listdir(self.__DESTIN_PATH))
 
-        # Check if correct number of files have been copied
         self.assertEqual(actual_num_of_files, self.__NUMBER_OF_FILES)
-        # Check if correct file extentions habe been copied
         self.assertTrue(self.__check_for_correct_files(self.f))
 
         # Second pass
@@ -81,27 +75,24 @@ class TestFile_Type_Backup(TestCase):
         self.assertEqual(actual_num_of_files, (2 * self.__NUMBER_OF_FILES))
 
     def test_FileTypeBackup_pathDoesNotExist(self):
-        """ If a given path that does not exist, an error
-            should be thrown by the method.
-        """
+        """ If a given path that does not exist, an error should be thrown."""
+
         self.f.set_source('does_not_exist')
 
         with self.assertRaises(ValueError):
             self.f.backup()
 
     def test_FileTypeBackup_pathIsFile(self):
-        """ If a given path that is a file, an error
-            should be thrown by the method.
-        """
+        """ If a given path that is a file, an error should be thrown."""
+
         self.f.set_source(os.path.join(self.__SOURCE_PATH, '0' + '_name.abcd'))
 
         with self.assertRaises(ValueError):
             self.f.backup()
 
     def tearDown(self):
-        """ Remove all files and directories used in the
-            testing process. Remove the File_Type instance.
-        """
+        """ Remove all files and directories used in the testing process. Remove the File_Type instance."""
+
         source_files = os.listdir(self.__SOURCE_PATH)
         destin_files = os.listdir(self.__DESTIN_PATH)
 

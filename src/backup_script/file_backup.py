@@ -17,19 +17,16 @@ class File_Backup(Backup):
         dir to a specified destination.
 
         @params
-            source: str - source directory
-            destination: str - copy to destination
+            source:         str - source directory
+            destination:    str - copy to destination
     """
 
     source: str
     destination: str
 
-    # TODO: Refactor the constructor to an empty one
     def __init__(self, source: str = None, destination: str = None):
-        """ Initialize File_Backup object by giving it a
-            sourcedirectory to copy from and a destination
-            to copy to.
-        """
+        """ Initialize File_Backup object by giving it a sourcedirectory to copy from and a destination to copy to."""
+
         if source:
             self.source = source
 
@@ -37,13 +34,13 @@ class File_Backup(Backup):
             self.destination = destination
 
     def backup(self) -> None:
-        """ Copy recursivly from self.root to self.dest."""
+        """ Copy recursivly from source to destination."""
 
         if not os.path.exists(self.source):
-            raise ValueError('Root does not exist')
+            raise ValueError('Source does not exist')
 
         if os.path.isfile(self.source):
-            raise ValueError('Root can not be a file')
+            raise ValueError('Source can not be a file')
 
         copy_tree(self.source, self.destination)
 
