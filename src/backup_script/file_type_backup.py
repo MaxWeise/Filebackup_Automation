@@ -30,13 +30,13 @@ class File_Type_Backup(Backup):
             and file types to copy.
         """
         if source:
-            source = source
+            self.source = source
 
         if destination:
-            destination = destination
+            self.destination = destination
 
         if file_types:
-            file_types = file_types
+            self.file_types = file_types
 
     def get_source(self) -> str:
         """ Return the source attribute."""
