@@ -13,28 +13,28 @@ from .backup import Backup
 
 
 class File_Backup(Backup):
-    """ Backup all files / directories in specified root
+    """ Backup all files / directories in specified source
         dir to a specified destination.
 
         @params
-            root: str - root directory
+            source: str - source directory
             destination: str - copy to destination
     """
-    def __init__(self, source: str, destination: str):
+
+    source: str
+    destination: str
+
+    # TODO: Refactor the constructor to an empty one
+    def __init__(self, source: str = None, destination: str = None):
         """ Initialize File_Backup object by giving it a
-            rootdirectory to copy from and a destination
+            sourcedirectory to copy from and a destination
             to copy to.
         """
-        self.source = source
-        self.destination = destination
+        if source:
+            self.source = source
 
-    def set_root(self, new_source: str) -> None:
-        """ Set the root attribute of an instance."""
-        self.source = new_source
-
-    def set_dest(self, new_destination: str) -> None:
-        """ Set the dest attribute of an instance."""
-        self.destination = new_destination
+        if destination:
+            self.destination = destination
 
     def backup(self) -> None:
         """ Copy recursivly from self.root to self.dest."""
@@ -47,9 +47,9 @@ class File_Backup(Backup):
 
         copy_tree(self.source, self.destination)
 
-    # def __str__(self) -> str:
-    #     """ Print a humanly readable representation
-    #         to the console.
-    #     """
-    #     return f'Backing up {self.root} into {self.dest}'
+    def __str__(self) -> str:
+        """ Print a humanly readable representation to the console."""
+        return(
+            f'<{type(self)}> source: {self.source} | destination: {self.dest}'
+        )
 
