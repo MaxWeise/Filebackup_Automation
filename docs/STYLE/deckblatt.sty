@@ -1,0 +1,43 @@
+
+\newcommand{\deckblatt}[6]{
+	\thispagestyle{empty}
+	\setcounter{page}{0}
+	
+	\begin{center}
+
+		\begin{Huge} %Titel der Arbeit
+			\scshape{\bfseries{#1}} 
+		\end{Huge}
+	
+    	\noindent\rule{0.75\paperwidth}{0.4pt}
+	
+    	\vspace{2cm}
+	
+        \begin{Huge} % Autor(en)
+			\textsf{#2}
+		\end{Huge}
+	
+    	\vfill
+	
+		\begin{Huge} % Fachlehrer
+			\textsf{#3}
+		\end{Huge}
+	
+        \vspace{1cm}
+	
+		\begin{Huge} % Fach
+            \textbf{\textsf{#4}}
+		\end{Huge}
+	
+    	\vfill
+	
+		\begin{Large} % Abgabedatum
+			#5
+		\end{Large}
+	
+		\begin{Large} % Hochschule
+			\textbf{#6}
+		\end{Large}
+
+	\end{center}
+}

@@ -1,0 +1,42 @@
+% Main file for the documentation
+\documentclass[12pt, a4paper, draft]{scrreprt}
+
+\usepackage{STYLE/packages}
+\usepackage{STYLE/settings}
+\usepackage{STYLE/deckblatt}
+
+\title{File Backup Documentation}
+\author{Max Weise}
+
+\lhead{\leftmark}
+\chead{}
+\rhead{}
+
+\lfoot{\rightmark}
+\cfoot{\thepage}
+\rfoot{}
+
+\begin{document}
+\deckblatt
+{\thetitle}
+{\theauthor}
+{}
+{}
+{Last Update: \today}
+{}
+
+\newpage
+
+\tableofcontents
+
+\input{PARTS/requirements}
+
+\input{PARTS/architecture}
+
+\input{PARTS/code_overview}
+
+\input{PARTS/styleguide}
+
+\input{PARTS/manual}
+
+\end{document}
