@@ -1,4 +1,3 @@
-# === Specific files / folders ===
 
 # === LaTeX ===
 ## Core latex/pdflatex auxiliary files:
@@ -159,3 +158,7 @@ dmypy.json
 
 # Local History for Visual Studio Code
 .history/
+
+# === Specific files / folders ===
+!docs/parts
+!docs/style
