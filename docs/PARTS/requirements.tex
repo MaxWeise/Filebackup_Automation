@@ -1,4 +1,17 @@
-\chapter{System Requirements}
+\chapter{System Requirements}\label{cha:system_requirements}
 This chapter contains a comprehensive list of all requirements for the system. 
 The order of the requirements is arbitraryly selected and does not indicate the importance
 of a specific requirement in comparison to any other.
+
+\section{Functional Requirements}\label{sec:functional_requiremens}
+All rqequirements which deal with the functionality of the programm will be listed in this section. 
+
+\begin{itemize}
+    \item All files should be copied from a given source directory to a given destination directory.
+    \item (If specified) All files that math any of the given fileextentions should be copied from a given source directory to a given destination directory.
+    \item The structure of the copied directory has to be preserved.
+    \begin{itemize}
+        \item Exception: If a subdirectory of the copied source directory does not contain any (matching) files it may be ignored and not be included in the destination directory.
+    \end{itemize}
+    \item There should not be any loss of data, except the files, which do not match the extentions specified by the user.
+\end{itemize}
