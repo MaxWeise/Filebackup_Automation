@@ -1,6 +1,4 @@
 # === Specific files / folders ===
-cmd/docs/*
-!cmd/docs/*.pdf
 
 # === LaTeX ===
 ## Core latex/pdflatex auxiliary files:
@@ -16,6 +14,8 @@ cmd/docs/*
 *.cb
 *.cb2
 .*.lb
+*.gz
+*.fdb_latexmk
 
 # === Python ===
 # Byte-compiled / optimized / DLL files
