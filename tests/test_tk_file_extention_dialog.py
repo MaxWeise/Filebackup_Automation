@@ -21,6 +21,7 @@ class Test_TextInputDialog(TestCase):
         """ Setup an instance of the text input dialog."""
         self.__UNDER_TEST = TextInputDialog(title='Test Instance')
 
+    @unittest.skip('Implementation will follow!')
     def test_get_user_input(self) -> None:
         """ Test that the userinput is correct and gets returned as list of strings."""
         self.__UNDER_TEST.set_contents_input_dialog('txt abc xx_xx')    # Mock the userinput
@@ -32,6 +33,15 @@ class Test_TextInputDialog(TestCase):
         self.assertTrue(len(actual) > 0)
         self.assertEqual(len(actual), 3)
         self.assertAlmostEqual(actual.sort(), expected.sort())
+
+    @unittest.skip('Implementation will follow!')
+    def test_cancle_button(self) -> None:
+        """ Test the behaviour of the canlce button."""
+        pass
+
+    def test_GUI_appearence(self) -> None:
+        """ Run this to see how the GUI looks."""
+        self.__UNDER_TEST.run()
 
 
 if __name__ == '__main__':
