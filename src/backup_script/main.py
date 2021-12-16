@@ -11,55 +11,13 @@ import tkinter as tk
 from backup_script.backup import Backup
 from backup_script.file_backup import File_Backup
 from backup_script.file_type_backup import File_Type_Backup
+from backup_script.tk_file_extention_dialog import TextInputDialog
 
 
 PROCEDURES = {
     'simple_backup' : File_Backup(),
     'file_type_backup' : File_Type_Backup(),
 }
-
-
-def _get_userinput_filetypes() -> list[str]:
-    """ Open a textinput box to the user and
-        return a list of entries
-    """
-    # TODO: This is bad practice. Research a better way of doing this and rework this mechanism (1)
-    global return_val
-    return_val = []
-
-    master = tk.Tk()
-    tk.Label(master, text="First Name").grid(row=0)
-
-    e1 = tk.Entry(master)
-
-    e1.grid(row=0, column=1)
-
-    # TODO: This belongs to (1)
-    def set_return_to_none() -> None:
-        global return_val
-        return_val = []
-        master.quit()
-
-    def set_return_to_list() -> None:
-        global return_val
-        return_val = e1.get().split(' ')
-        master.quit()
-
-    tk.Button(
-        master,
-        text='Quit',
-        command=set_return_to_none
-    ).grid(row=3, column=0, sticky=tk.W, pady=4)
-
-    tk.Button(
-        master,
-        text='Submit',
-        command=master.quit     # Close the window but don't change the text
-    ).grid(row=3, column=1, sticky=tk.W, pady=4)
-
-    master.mainloop()
-
-    return return_val
 
 
 def backup_object_factory(backup_procedure: str) -> Backup:
@@ -69,7 +27,6 @@ def backup_object_factory(backup_procedure: str) -> Backup:
 
 def main():
     """ Main programm starts here"""
-    # === Step one ===
     # Setup for argparse
     parser = argparse.ArgumentParser()
 
@@ -100,15 +57,15 @@ def main():
     root = tk.Tk()
     root.withdraw()
 
-    # === Step two ===
     source_path = tk.filedialog.askdirectory(parent=root, title='Select a source directory')
     destination_path = tk.filedialog.askdirectory(parent=root, title='Select a destination directory')
     file_types = None
 
     if args.procedure == list(PROCEDURES.keys())[1]:
-        file_types = _get_userinput_filetypes()     # FIXME: Let this be handled by an object
+        text_input_dialog = TextInputDialog('Please enter file extentions')
+        text_input_dialog.run()
+        file_types = text_input_dialog.get_user_input()
 
-    # === Step three ===
     backup_instance: Backup = backup_object_factory(args.procedure)
     backup_instance.set_source(source_path)
     backup_instance.set_destination(destination_path)
