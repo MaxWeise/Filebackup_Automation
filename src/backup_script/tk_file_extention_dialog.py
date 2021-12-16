@@ -25,13 +25,11 @@ class TextInputDialog:
     def __init__(self, title: str = 'Header') -> None:
         self.root = tk.Tk()
         self.root.title(title)
-        # self._setup_gui(self.root)
 
         self.file_extentions = []
         self.exit_code = self.__EXIT_CODES['NOTRUN']
 
-    # def _setup_gui(self, tk_root) -> None:
-    #     """ Setup the tkinter GUI."""
+        # Setup the GUI window
         self.root.geometry('200x100')
         self.root.config(bg='skyblue')    # Color of root window
 

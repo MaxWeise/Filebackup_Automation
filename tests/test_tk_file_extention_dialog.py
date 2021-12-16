@@ -46,10 +46,6 @@ class Test_TextInputDialog(TestCase):
         self.assertEqual(actual, expected)
         self.assertEqual(self.__UNDER_TEST.exit_code, 1)
 
-    # def test_GUI_appearence(self) -> None:
-    #     """ Run this to see how the GUI looks."""
-    #     self.__UNDER_TEST.run()
-
 
 if __name__ == '__main__':
     unittest.main()
