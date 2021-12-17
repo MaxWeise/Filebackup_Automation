@@ -14,15 +14,12 @@ from backup_script.file_type_backup import File_Type_Backup
 from backup_script.tk_file_extention_dialog import TextInputDialog
 
 
-PROCEDURES = {
-    'simple_backup' : File_Backup(),
-    'file_type_backup' : File_Type_Backup(),
-}
-
-
-def backup_object_factory(backup_procedure: str) -> Backup:
+def backup_object_factory(backup_procedure: bool) -> Backup:
     """ This function returns an object which handles the backupprocess."""
-    return PROCEDURES[backup_procedure.lower()]
+    if backup_procedure:
+        return File_Type_Backup()
+    else:
+        return File_Backup()
 
 
 def main():
@@ -31,9 +28,9 @@ def main():
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        'procedure',
-        help='Specify the procedure type',
-        choises=list(PROCEDURES.keys())
+        '-ft', '--filetype',
+        help='Set the procedure to file type backup',
+        action='store_true'
     )
 
     parser.add_argument(
@@ -61,16 +58,16 @@ def main():
     destination_path = tk.filedialog.askdirectory(parent=root, title='Select a destination directory')
     file_types = None
 
-    if args.procedure == list(PROCEDURES.keys())[1]:
+    if args.filetype:
         text_input_dialog = TextInputDialog('Please enter file extentions')
         text_input_dialog.run()
         file_types = text_input_dialog.get_user_input()
 
-    backup_instance: Backup = backup_object_factory(args.procedure)
+    backup_instance: Backup = backup_object_factory(args.filetype)
     backup_instance.set_source(source_path)
     backup_instance.set_destination(destination_path)
 
-    if args.procedure == list(PROCEDURES.keys())[1]:
+    if args.filetype:
         backup_instance.set_file_types(file_types)
 
     try:
