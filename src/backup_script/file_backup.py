@@ -7,6 +7,7 @@ Created: 15.02.2021
 """
 
 import os
+import logging
 from distutils.dir_util import copy_tree
 
 from .backup import Backup
@@ -33,6 +34,8 @@ class File_Backup(Backup):
         if destination:
             self.destination = destination
 
+        self.object_logger = logging.getLogger(__name__)
+
     def backup(self) -> None:
         """ Copy recursivly from source to destination."""
 
@@ -42,9 +45,13 @@ class File_Backup(Backup):
         if os.path.isfile(self.source):
             raise ValueError('Source can not be a file')
 
+        self.object_logger.info(f'Backing up {self.source} -> {self.destination}')
         copy_tree(self.source, self.destination)
 
     def __str__(self) -> str:
+        return f'{type(self)}'
+
+    def __repr__(self) -> str:
         """ Print a humanly readable representation to the console."""
         return(
             f'<{type(self)}> source: {self.source} | destination: {self.dest}'
