@@ -1,15 +1,25 @@
 
 # Backup Automation Script
-This script is used to backup files (recursivley) either to a harddrive or a NAS
+This script is used to backup files (recursivley) to any storage device which has a system path (X:\\path\\to\\folder)
 
 # Dependencies
     - Python 3.X
 
 # Usage
-Currently, the only way of using the script is by executing the **main.py**
-file in the **src** directory. This can be done in any commandline-interface
-(Unix based systems and Windows systems). 
-On start the possibilities available to the user are displayed in the terminal window. By entering one of those options, the corresponding procedure will be called and the user gets asked from which directory files should be copied and where to. In case the 'File-Type-Backup' procedure got called, a list of relevant filetypes is asked. 
+The program is run using the CLI. By typing  
+
+```shell
+$ python3 main.py procedure 
+```
+ 
+the argument "procedure" is used to determine which backup procedure is used to backup the files.
+The programm will ask which directory to backup, the destination directory and optionaly filetypes to backup using a tkinter GUI. For more information on how to run the script and its arguments, either run 
+
+```shell
+$ python3 main.py -h
+```
+
+or view the documentation
 
 # Licence
 Generally speaking, I don't mind usage of this source code, whether it be in
@@ -20,7 +30,7 @@ of it.
 For further information, read the *LICENCE* file located in this repository.
 
 # Documentation
-If you are interested in the documentation, please look under *cmd/doc*. There
+If you are interested in the documentation, please look under *doc/*. There
 you will find the documentation (.pdf), containing explanations for the classes
 and mehtods, as well as the styleguide. 
 
