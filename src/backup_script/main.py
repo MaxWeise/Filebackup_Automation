@@ -30,13 +30,18 @@ _LOG_FORMAT_CONSOLE = '[%(asctime)s] %(levelname)-8s %(name)-12s %(message)s'
 _LOG_FORMAT_LOGFILE = '[%(asctime)s] %(levelname)-8s %(name)-12s %(message)s'
 _LOG_FILE = f'{date.today()}_logfile.log'
 
+_BACKUP_STRATEGIES = {
+    'backup'            : File_Backup(),
+    'filetypebackup'    : File_Type_Backup(),
+}
 
-def backup_object_factory(backup_procedure: bool) -> Backup:
+
+def backup_object_factory(backup_procedure: str) -> Backup:
     """ This function returns an object which handles the backupprocess."""
-    if backup_procedure:
-        return File_Type_Backup()
-    else:
-        return File_Backup()
+    if backup_procedure not in _BACKUP_STRATEGIES.keys():
+        raise KeyError(f'There is no {backup_procedure} Strategie defined')
+
+    return _BACKUP_STRATEGIES[backup_procedure]
 
 
 def _argument_parser_setup() -> argparse.ArgumentParser:
@@ -44,9 +49,8 @@ def _argument_parser_setup() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        '-ft', '--filetype',
-        help='Set the procedure to file type backup',
-        action='store_true'
+        'procedure',
+        help='Specify the type of backup procedure'
     )
 
     parser.add_argument(
@@ -101,9 +105,13 @@ def main():
     logger.info('Selecting directories')
     source_path = filedialog.askdirectory(parent=root, title='Select a source directory')
     destination_path = filedialog.askdirectory(parent=root, title='Select a destination directory')
-    file_types = None
+    # file_types = None
 
-    if args.filetype:
+    backup_instance: Backup = backup_object_factory(args.procedure)
+    logger.info(f'Created {backup_instance}')
+
+    if isinstance(backup_instance, File_Type_Backup):
+        logger.debug('is true')
         logger.info('Selecting filetypes')
         text_input_dialog = TextInputDialog('Please enter file extentions')
         try:
@@ -112,15 +120,13 @@ def main():
             logger.warning(e)
 
         file_types = text_input_dialog.get_user_input()
+        backup_instance.set_file_types(file_types)
 
-    logger.info(f'Selected {source_path} as source, {destination_path} as destination, {file_types} as file types')
-    backup_instance: Backup = backup_object_factory(args.filetype)
-    logger.info(f'Created {backup_instance}')
+        logger.info(f'Selected {file_types}')
+
     backup_instance.set_source(source_path)
     backup_instance.set_destination(destination_path)
-
-    if args.filetype:
-        backup_instance.set_file_types(file_types)
+    logger.info(f'Selected {source_path} as source, {destination_path} as destination')
 
     try:
         backup_instance.backup()
