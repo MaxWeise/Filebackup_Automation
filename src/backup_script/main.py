@@ -39,6 +39,32 @@ def backup_object_factory(backup_procedure: bool) -> Backup:
         return File_Backup()
 
 
+def _argument_parser_setup() -> argparse.ArgumentParser:
+    """ Define all arguments for the script and return an ArgumentParser instance."""
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        '-ft', '--filetype',
+        help='Set the procedure to file type backup',
+        action='store_true'
+    )
+
+    parser.add_argument(
+        '-v', '--verbose',
+        help='Set the logging output to stdout',
+        action='store_true'
+    )
+
+    parser.add_argument(
+        '-log',
+        help='Specify the logging level',
+        choices=list(_LOGGING_LEVELS.keys()),
+        default=_LOGGING_LEVELS['info']
+    )
+
+    return parser.parse_args()
+
+
 def _logger_setup(verbose: bool, __logging_level=logging.DEBUG) -> logging.Logger:
     """ Create the logger for this module."""
     logger = logging.getLogger('main_script')
@@ -64,32 +90,9 @@ def _logger_setup(verbose: bool, __logging_level=logging.DEBUG) -> logging.Logge
 
 def main():
     """ Main programm starts here"""
-    # Setup for argparse
-    parser = argparse.ArgumentParser()
 
-    parser.add_argument(
-        '-ft', '--filetype',
-        help='Set the procedure to file type backup',
-        action='store_true'
-    )
-
-    parser.add_argument(
-        '-v', '--verbose',
-        help='Set the logging output to stdout',
-        action='store_true'
-    )
-
-    parser.add_argument(
-        '-log',
-        help='Specify the logging level',
-        choices=list(_LOGGING_LEVELS.keys()),
-        default=_LOGGING_LEVELS['info']
-    )
-
-    args = parser.parse_args()
-
-    # Setup for logger
-    logger = _logger_setup(args.verbose, args.log)
+    args = _argument_parser_setup()                 # Setup for argparse
+    logger = _logger_setup(args.verbose, args.log)  # Setup for logger
 
     # Setup Tkinter
     root = tk.Tk()
