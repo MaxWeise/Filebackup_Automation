@@ -24,9 +24,6 @@ class TextInputDialog:
     }
 
     def __init__(self, title: str = 'Header') -> None:
-        self.object_logger = logging.getLogger(__name__)
-
-        self.object_logger.info('Setting up GUI window')
         self.root = tk.Tk()
         self.root.title(title)
 
@@ -54,7 +51,6 @@ class TextInputDialog:
         """ This method will execute when the user clicks the submit button on the GUI
             It will safe the contents from the textfield as a list
         """
-        self.object_logger.info(f'Clicked submit button, submitted "{self.text_input_label.get()}"')
         self.file_extentions = self.text_input_label.get().split(' ')
         self.exit_code = self.__EXIT_CODES['SUCCESS']
         self.root.quit()
@@ -63,7 +59,6 @@ class TextInputDialog:
         """ This method will execute when the user clicks the cancle button on the GUI
             It will clear the contents of the textfield.
         """
-        self.object_logger.info('Clicked cancle button')
         self.file_extentions = []   # Explicitly setting the list to an empty one
         self.exit_code = self.__EXIT_CODES['ERROR']
         self.root.quit()

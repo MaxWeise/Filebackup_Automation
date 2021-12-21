@@ -4,7 +4,6 @@ Created: 01.05.2021
 @author: Max Weise
 """
 import os
-import logging
 from shutil import copy
 
 from backup_script.backup import Backup
@@ -29,8 +28,6 @@ class File_Type_Backup(Backup):
         self.source = source
         self.destination = destination
         self.file_types = file_types
-
-        self.object_logger = logging.getLogger(__name__)
 
     def get_source(self) -> str:
         """ Return the source attribute."""
@@ -61,7 +58,6 @@ class File_Type_Backup(Backup):
         if os.path.isfile(self.get_source()):
             raise ValueError('Source directory can not be a file')
 
-        self.object_logger.info(f'Backing up {self.source} -> {self.destination} using {self.file_types}')
         for _, _, files in os.walk(self.get_source()):
             if len(files) > 0:
                 for f in self.__check_for_relevant_files(files):
