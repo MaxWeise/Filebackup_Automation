@@ -26,6 +26,8 @@ _LOGGING_LEVELS = {
     'critical'  : logging.CRITICAL,
 }
 
+_DEFAULT_LOG_LEVEL = 'info'
+
 _LOG_FORMAT_CONSOLE = '[%(asctime)s] %(levelname)-8s %(name)-12s %(message)s'
 _LOG_FORMAT_LOGFILE = '[%(asctime)s] %(levelname)-8s %(name)-12s %(message)s'
 _LOG_FILE = f'{date.today()}_logfile.log'
@@ -63,20 +65,23 @@ def _argument_parser_setup() -> argparse.ArgumentParser:
         '-log',
         help='Specify the logging level',
         choices=list(_LOGGING_LEVELS.keys()),
-        default=_LOGGING_LEVELS['info']
+        default=_DEFAULT_LOG_LEVEL
     )
 
     return parser.parse_args()
 
 
-def _logger_setup(verbose: bool, __logging_level=logging.DEBUG) -> logging.Logger:
+def _logger_setup(verbose: bool, __logging_level: str = _DEFAULT_LOG_LEVEL) -> logging.Logger:
     """ Create the logger for this module."""
     logger = logging.getLogger('main_script')
-    logger.setLevel(__logging_level)
+    try:
+        logger.setLevel(_LOGGING_LEVELS[__logging_level])
+    except Exception as e:
+        print(e)
 
     # Setup file logging
     file_handler = logging.FileHandler(_LOG_FILE)
-    file_handler.setLevel(logging.INFO)
+    file_handler.setLevel(logging.DEBUG)
     log_format = logging.Formatter(_LOG_FORMAT_LOGFILE)
     file_handler.setFormatter(log_format)
     logger.addHandler(file_handler)
@@ -84,7 +89,7 @@ def _logger_setup(verbose: bool, __logging_level=logging.DEBUG) -> logging.Logge
     # Setup sysout logging (if specified)
     if verbose:
         console_handler = logging.StreamHandler(sys.stdout)
-        console_handler.setLevel(__logging_level)
+        console_handler.setLevel(_LOGGING_LEVELS[__logging_level])
         print_format = logging.Formatter(_LOG_FORMAT_CONSOLE)
         console_handler.setFormatter(print_format)
         logger.addHandler(console_handler)
@@ -111,13 +116,13 @@ def main():
     logger.info(f'Created {backup_instance}')
 
     if isinstance(backup_instance, File_Type_Backup):
-        logger.debug('is true')
         logger.info('Selecting filetypes')
         text_input_dialog = TextInputDialog('Please enter file extentions')
         try:
             text_input_dialog.run()
         except Exception as e:
-            logger.warning(e)
+            logger.warning('An exeption has occured. The backup procedure might not work correctly')
+            logger.error(e)
 
         file_types = text_input_dialog.get_user_input()
         backup_instance.set_file_types(file_types)
@@ -136,3 +141,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
