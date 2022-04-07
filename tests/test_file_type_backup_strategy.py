@@ -26,7 +26,7 @@ class TestFileTypeBackupStrategy(TestCase):
 
         for string in files_in_dir:
             file_extention = string.split('.')
-            if file_extention[-1] not in self.f.get_file_types():
+            if file_extention[-1] not in self.f.file_types:
                 all_files_correct = False
 
         return all_files_correct
