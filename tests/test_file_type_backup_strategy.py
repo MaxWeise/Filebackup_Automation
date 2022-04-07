@@ -8,17 +8,17 @@ import os
 import unittest
 from unittest import TestCase
 
-from backup_script.file_type_backup import File_Type_Backup
+import backup_script.backup_strategies.file_type_backup_strategy as fts
 
 
-class TestFile_Type_Backup(TestCase):
+class TestFileTypeBackupStrategy(TestCase):
     """ Test the Filebackupclass"""
 
     __SOURCE_PATH = 'test_source'
     __DESTIN_PATH = 'test_destin'
     __NUMBER_OF_FILES = 5
 
-    def __check_for_correct_files(self, f: File_Type_Backup) -> bool:
+    def __check_for_correct_files(self, f: fts.FileTypeBackupStrategy) -> bool:
         """ Verifies that all copied files have the correct file extention."""
 
         files_in_dir = os.listdir(self.__DESTIN_PATH)
@@ -52,7 +52,11 @@ class TestFile_Type_Backup(TestCase):
             with open(file_path, 'w+'):    # Write empty files
                 pass
 
-        self.f = File_Type_Backup(self.__SOURCE_PATH, self.__DESTIN_PATH, None)
+        self.f = fts.FileTypeBackupStrategy(
+            self.__SOURCE_PATH,
+            self.__DESTIN_PATH,
+            None
+        )
 
     def test_FileTypeBackup(self):  # sourcery skip: extract-duplicate-method
         """ Tests the main functionality of the class."""

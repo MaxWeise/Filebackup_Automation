@@ -9,10 +9,10 @@ Created: 15.02.2021
 import os
 from distutils.dir_util import copy_tree
 
-from .backup import Backup
+from backup_script.backup_strategies.abstract_backup_strategy import Backup
 
 
-class SimpleBackupStrategie(Backup):
+class SimpleBackupStrategy(Backup):
     """ Copies all contents from a given source to a given destination."""
 
     source: str

@@ -6,10 +6,10 @@ Created: 01.05.2021
 import os
 from shutil import copy
 
-from backup_script.backup import Backup
+from backup_script.backup_strategies.abstract_backup_strategy import Backup
 
 
-class BackupFileTypeStrategie(Backup):
+class FileTypeBackupStrategy(Backup):
     """ Copies files from a given source to a given destination.
 
     This strategy selects the files to be copied by their file extention.

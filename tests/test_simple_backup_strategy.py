@@ -8,7 +8,7 @@ import os
 import unittest
 from unittest import TestCase
 
-from backup_script.file_backup import File_Backup
+import backup_script.backup_strategies.simple_backup_strategy as sbs
 
 
 class TestFile_Backup(TestCase):
@@ -29,11 +29,13 @@ class TestFile_Backup(TestCase):
 
         for i in range(self.__NUMBER_OF_FILES):
             file_path = os.path.join(self.__SOURCE_PATH, f'{str(i)}_name.txt')
-            # Write empty files
             with open(file_path, 'w+'):
                 pass
 
-        self.f = File_Backup(self.__SOURCE_PATH, self.__DESTIN_PATH)
+        self.f = sbs.SimpleBackupStrategy(
+            self.__SOURCE_PATH,
+            self.__DESTIN_PATH
+        )
 
     def test_fileBackup(self):
         """ Tests if all files in self.SOURCE_PATH get copied correctly."""
@@ -51,7 +53,7 @@ class TestFile_Backup(TestCase):
             self.f.backup()
 
     def test_fileBackup_pathIsFile(self):
-        self.f.set_source(os.path.join(self.__SOURCE_PATH, '0' + '_name.txt'))
+        self.f.set_source(os.path.join(self.__SOURCE_PATH, '0_name.txt'))
 
         with self.assertRaises(ValueError):
             self.f.backup()
