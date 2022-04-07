@@ -1,4 +1,4 @@
-""" Abstract baseclass for file_backup and file_type_backup
+""" Abstract strategy for the project.
 
 Created: 20.07.2021
 @author: Max Weise
@@ -8,13 +8,15 @@ from abc import ABC, abstractmethod
 
 
 class Backup(ABC):
-    """ Defines an abstract base class for the other procedures.
+    """ Copies files from a given source to a given destination.
 
-        @params
-            source:         str - source directory
-            destination:    str - copy to destination
+    This is an abstract base definition which allows for the strategy-
+    pattern to be used.
+
+    Attributes:
+        source (str): Source directory from which to copy from.
+        destination (str): Destination directory to which to copy to.
     """
-
     source: str
     destination: str
 

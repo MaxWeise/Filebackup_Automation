@@ -1,6 +1,4 @@
-""" Module to copy a directory recursivly, either everything or only
-    specific filetypes. In both cases, the structure of the directory
-    will be keept.
+""" Strategy to copy files recursivly by type.
 
 Created: 15.02.2021
 @author: Max Weise
@@ -13,8 +11,12 @@ from backup_script.backup_strategies.abstract_backup_strategy import Backup
 
 
 class SimpleBackupStrategy(Backup):
-    """ Copies all contents from a given source to a given destination."""
+    """ Copies files from a given source to a given destination.
 
+    Attributes:
+        source (str): Source directory from which to copy from.
+        destination (str): Destination directory to which to copy to.
+    """
     source: str
     destination: str
 
