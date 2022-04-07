@@ -1,12 +1,11 @@
-#!/usr/bin/env python
 """ Testmodule for file_type_backup.py
 
 created: 04.05.2021
 author: Max Weise
 """
 
-import os, unittest
-
+import os
+import unittest
 from unittest import TestCase
 
 from backup_script.file_type_backup import File_Type_Backup
@@ -20,7 +19,7 @@ class TestFile_Type_Backup(TestCase):
     __NUMBER_OF_FILES = 5
 
     def __check_for_correct_files(self, f: File_Type_Backup) -> bool:
-        """ Auxiliary method which verifies that all copied files have indeed the correct file extention."""
+        """ Verifies that all copied files have the correct file extention."""
 
         files_in_dir = os.listdir(self.__DESTIN_PATH)
         all_files_correct = True
@@ -33,7 +32,7 @@ class TestFile_Type_Backup(TestCase):
         return all_files_correct
 
     def setUp(self):
-        """ Create the directories and files needed for the test. Create an instance of File_Type_Backup."""
+        """ Sets up the test environment."""
 
         if not os.path.exists(self.__SOURCE_PATH):
             os.makedirs(self.__SOURCE_PATH)
@@ -44,19 +43,19 @@ class TestFile_Type_Backup(TestCase):
         # Write two sets of files with different file
         # extentions (.txt and .abcd)
         for i in range(self.__NUMBER_OF_FILES):
-            file_path = os.path.join(self.__SOURCE_PATH, str(i) + '_name.txt')
+            file_path = os.path.join(self.__SOURCE_PATH, f'{str(i)}_name.txt')
             with open(file_path, 'w+'):    # Write empty files
                 pass
 
         for i in range(self.__NUMBER_OF_FILES):
-            file_path = os.path.join(self.__SOURCE_PATH, str(i) + '_name.abcd')
+            file_path = os.path.join(self.__SOURCE_PATH, f'{str(i)}_name.abcd')
             with open(file_path, 'w+'):    # Write empty files
                 pass
 
         self.f = File_Type_Backup(self.__SOURCE_PATH, self.__DESTIN_PATH, None)
 
     def test_FileTypeBackup(self):  # sourcery skip: extract-duplicate-method
-        """ Test the main functionality of the class by copying all specified files to the intended directory."""
+        """ Tests the main functionality of the class."""
 
         # First pass
         self.f.set_file_types(['txt'])
@@ -91,7 +90,7 @@ class TestFile_Type_Backup(TestCase):
             self.f.backup()
 
     def tearDown(self):
-        """ Remove all files and directories used in the testing process. Remove the File_Type instance."""
+        """ Cleans the test env."""
 
         source_files = os.listdir(self.__SOURCE_PATH)
         destin_files = os.listdir(self.__DESTIN_PATH)

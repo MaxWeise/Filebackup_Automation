@@ -8,7 +8,7 @@ from abc import ABC, abstractmethod
 
 
 class Backup(ABC):
-    """ Define an abstract base class for the other procedures
+    """ Defines an abstract base class for the other procedures.
 
         @params
             source:         str - source directory
@@ -19,13 +19,14 @@ class Backup(ABC):
     destination: str
 
     def set_source(self, source) -> None:
-        """ Set the source attribute of an instance"""
+        """ Sets the source attribute of an instance"""
         self.source = source
 
     def set_destination(self, destination) -> None:
-        """ Set the destination attribute of an instance"""
+        """ Sets the destination attribute of an instance"""
         self.destination = destination
 
     @abstractmethod
     def backup(self) -> None:
         """ Copy recursivly from self.root to self.dest."""
+        ...

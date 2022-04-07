@@ -9,48 +9,48 @@ from shutil import copy
 from backup_script.backup import Backup
 
 
-class File_Type_Backup(Backup):
-    """ This class can be used to backup files regarding
-        their types (file endings '.xxx').
+class BackupFileTypeStrategie(Backup):
+    """ Copies files from a given source to a given destination.
 
-        @params
-            source:         str  - source directory
-            destination:    str  - destination directory
-            file_types:     list - filetyes to backup
+    This strategy selects the files to be copied by their file extention.
     """
 
     source: str
     destination: str
     file_types: list[str]
 
-    def __init__(self, source: str = None, destination: str = None, file_types: list = None):
-        """ Initialize object by giving it source, destination and file types to copy."""
+    def __init__(
+        self,
+        source: str = None,
+        destination: str = None,
+        file_types: list[str] = None
+    ):
         self.source = source
         self.destination = destination
         self.file_types = file_types
 
     def get_source(self) -> str:
-        """ Return the source attribute."""
+        """ The source attribute."""
         return self.source
 
     def get_dest(self) -> str:
-        """ Returns the set destination"""
+        """ The destination attribute."""
         return self.destination
 
-    def set_file_types(self, new_file_types: list) -> None:
-        """ Set the attribute file_types to a specified list. Mostly used for testing."""
+    def set_file_types(self, new_file_types: list[str]) -> None:
+        """ Sets the file_types attribute."""
         self.file_types = new_file_types
 
     def get_file_types(self) -> list:
         """ Get the contents of the file_types attribute."""
         return self.file_types
 
-    def __check_for_relevant_files(self, list_to_check: list) -> list:
+    def __check_for_relevant_files(self, lst: list[str]) -> list[str]:
         """ Search a given list of files for relevant filetypes."""
-        return [f for f in list_to_check if f.split('.')[-1] in self.file_types]
+        return [f for f in lst if f.split('.')[-1] in self.file_types]
 
     def backup(self) -> None:
-        """ Copy specified files matching the sorting-criterium from source to destination."""
+        """ Strategy method. Defines the backup strategie."""
 
         if not os.path.exists(self.get_source()):
             raise ValueError('Source directory does not exist')
@@ -62,13 +62,3 @@ class File_Type_Backup(Backup):
             if len(files) > 0:
                 for f in self.__check_for_relevant_files(files):
                     copy(os.path.join(self.get_source(), f), self.get_dest())
-
-    def __str__(self) -> str:
-        """ Print a humanly readable representation to the console."""
-        return f'{type(self)}'
-
-    def __repr__(self) -> str:
-        """ Print a formal representation of the object which contains all needed information about the object."""
-        return(
-            f'<{type(self)}> source: {self.source} | destination: {self.destination} | types: {self.file_types}'
-        )
