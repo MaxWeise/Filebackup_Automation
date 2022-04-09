@@ -61,14 +61,17 @@ class TestFile_Backup(TestCase):
     def tearDown(self):
         """ Cleans up test environment."""
 
-        source_files = os.listdir(self.__SOURCE_PATH)
-        destin_files = os.listdir(self.__DESTIN_PATH)
+        if os.path.isdir(self.__SOURCE_PATH):
+            source_files = os.listdir(self.__SOURCE_PATH)
 
-        for f in source_files:
-            os.remove(os.path.join(self.__SOURCE_PATH, f))
+            for f in source_files:
+                os.remove(os.path.join(self.__SOURCE_PATH, f))
 
-        for f in destin_files:
-            os.remove(os.path.join(self.__DESTIN_PATH, f))
+        if os.path.isdir(self.__DESTIN_PATH):
+            destin_files = os.listdir(self.__DESTIN_PATH)
+
+            for f in destin_files:
+                os.remove(os.path.join(self.__DESTIN_PATH, f))
 
         os.rmdir(self.__SOURCE_PATH)
         os.rmdir(self.__DESTIN_PATH)
