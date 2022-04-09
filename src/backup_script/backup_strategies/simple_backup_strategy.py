@@ -5,8 +5,8 @@ Created: 15.02.2021
 """
 
 import os
-from distutils.dir_util import copy_tree
-
+# from distutils.dir_util import copy_tree
+import shutil
 from backup_script.backup_strategies.abstract_backup_strategy import Backup
 
 
@@ -34,4 +34,4 @@ class SimpleBackupStrategy(Backup):
         if os.path.isfile(self.source):
             raise ValueError('Source can not be a file')
 
-        copy_tree(self.source, self.destination)
+        shutil.copytree(self.source, self.destination, dirs_exist_ok=True)
