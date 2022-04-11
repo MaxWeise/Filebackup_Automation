@@ -9,6 +9,9 @@ Created on: 27.01.2021
 import argparse
 import logging
 
+import tkinter as tk
+from tkinter import filedialog
+
 import backup_script.backup_strategies.simple_backup_strategy as sbs
 import backup_script.backup_strategies.abstract_backup_strategy as ab
 import backup_script.backup_strategies.file_type_backup_strategy as fts
@@ -94,6 +97,24 @@ def main():
     backup_instance = backup_object_factory(args.procedure)
     logger.info(f'Created object of type {backup_instance}')
 
+    # Setting source and destination directories
+    root = tk.Tk()
+    root.withdraw()
+
+    src_dir = filedialog.askdirectory(
+        parent=root,
+        title='Please select a source directory'
+    )
+    dst_dir = filedialog.askdirectory(
+        parent=root,
+        title='Please select a destination directory'
+    )
+
+    backup_instance.set_source(src_dir)
+    backup_instance.set_destination(dst_dir)
+
+    # Backup process. The concrete procedure is
+    # determined by the calling object
     try:
         logger.info('Starting backup process.')
         backup_instance.backup()
