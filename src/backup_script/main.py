@@ -49,7 +49,8 @@ def _argument_parser_setup() -> argparse.ArgumentParser:
 
     parser.add_argument(
         'procedure',
-        help='Specify the type of backup procedure',
+        help='Specify the type of backup procedure. For more information '
+             'please refer to the documentation.',
         choices=STRATEGIES.keys()
     )
 
