@@ -7,13 +7,36 @@ Created on: 27.01.2021
 
 
 import argparse
+import logging
 
-# def backup_object_factory(backup_procedure: str) -> Backup:
-#     """ This function returns an object which handles the backupprocess."""
-#     if backup_procedure not in _BACKUP_STRATEGIES.keys():
-#         raise KeyError(f'There is no {backup_procedure} Strategie defined')
-#
-#     return _BACKUP_STRATEGIES[backup_procedure]
+import backup_script.backup_strategies.simple_backup_strategy as sbs
+import backup_script.backup_strategies.abstract_backup_strategy as ab
+import backup_script.backup_strategies.file_type_backup_strategy as fts
+
+
+STRATEGIES = {
+    'simple-backup': sbs.SimpleBackupStrategy(),
+    'file-type-backup': fts.FileTypeBackupStrategy()
+}
+
+
+def backup_object_factory(backup_procedure: str) -> ab.Backup:
+    """Returns an instance of a concrete backup strategy implementation.
+
+    Args:
+        backup_procedure (str): Specifies the strategy to be created.
+
+    Raises:
+        KeyError: If the argument passed to the function does not match any
+            specified backup strategy.
+
+    Returns:
+        ab.Backup: An instance of a concrete implementation of Backup.
+    """
+    if backup_procedure not in STRATEGIES.keys():
+        raise KeyError(f'There is no {backup_procedure} Strategie defined')
+
+    return STRATEGIES[backup_procedure]
 
 
 def _argument_parser_setup() -> argparse.ArgumentParser:
@@ -26,49 +49,39 @@ def _argument_parser_setup() -> argparse.ArgumentParser:
 
     parser.add_argument(
         'procedure',
-        help='Specify the type of backup procedure'
+        help='Specify the type of backup procedure',
+        choices=STRATEGIES.keys()
     )
 
-    # parser.add_argument(
-    #     '-v', '--verbose',
-    #     help='Set the logging output to stdout',
-    #     action='store_true'
-    # )
-
-    # parser.add_argument(
-    #     '-log',
-    #     help='Specify the logging level',
-    #     choices=list(_LOGGING_LEVELS.keys()),
-    #     default=_DEFAULT_LOG_LEVEL
-    # )
+    parser.add_argument(
+        '-v', '--verbose',
+        help='Set the logging level to info (default is warning)',
+        action='store_true'
+    )
 
     return parser.parse_args()
 
 
-# def _logger_setup(verbose: bool) -> logging.Logger:
-#     """ Create the logger for this module."""
-#     logger = logging.getLogger('main_script')
-#     try:
-#         logger.setLevel(_LOGGING_LEVELS[__logging_level])
-#     except Exception as e:
-#         print(e)
-#
-#     # Setup file logging
-#     file_handler = logging.FileHandler(_LOG_FILE)
-#     file_handler.setLevel(logging.DEBUG)
-#     log_format = logging.Formatter(_LOG_FORMAT_LOGFILE)
-#     file_handler.setFormatter(log_format)
-#     logger.addHandler(file_handler)
-#
-#     # Setup sysout logging (if specified)
-#     if verbose:
-#         console_handler = logging.StreamHandler(sys.stdout)
-#         console_handler.setLevel(_LOGGING_LEVELS[__logging_level])
-#         print_format = logging.Formatter(_LOG_FORMAT_CONSOLE)
-#         console_handler.setFormatter(print_format)
-#         logger.addHandler(console_handler)
-#
-#     return logger
+def _logger_setup(verbose: bool) -> logging.Logger:
+    """ Creates a logger for the module.
+
+    Args:
+        verbose (bool): Sets the logging level to info if true. If not, level
+            is set to false.
+
+    Returns:
+        Logger: Module level logger.
+    """
+
+    logger = logging.getLogger('backup_logger')
+    logger.setLevel(logging.INFO if verbose else logging.WARNING)
+    frmt = logging.Formatter('[%(levelname)s] - %(message)s')
+
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(frmt)
+    logger.addHandler(console_handler)
+
+    return logger
 
 
 def main():
