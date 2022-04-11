@@ -87,9 +87,20 @@ def _logger_setup(verbose: bool) -> logging.Logger:
 def main():
     """ Main programm starts here"""
     # Setup argparser and logger
-    # args = _argument_parser_setup()
-    # logger = _logger_setup(args.verbose, args.log)
-    pass
+    args = _argument_parser_setup()
+    logger = _logger_setup(args.verbose)
+
+    backup_instance = backup_object_factory(args.procedure)
+    logger.info(f'Created object of type {backup_instance}')
+
+    try:
+        logger.info('Starting backup process.')
+        backup_instance.backup()
+    except Exception as e:
+        logger.critical(
+            'Process failed. '
+            f'This exception was raised during the backup process:\n {e}'
+        )
 
 
 if __name__ == '__main__':
