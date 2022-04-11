@@ -56,3 +56,6 @@ class FileTypeBackupStrategy(Backup):
             if len(files) > 0:
                 for f in self.__check_for_relevant_files(files):
                     copy(os.path.join(self.source, f), self.destination)
+
+    def __str__(self) -> str:
+        return 'File Type Backup Strategy'

@@ -35,3 +35,6 @@ class SimpleBackupStrategy(Backup):
             raise ValueError('Source can not be a file')
 
         shutil.copytree(self.source, self.destination, dirs_exist_ok=True)
+
+    def __str__(self) -> str:
+        return 'Simple Backup Strategy'
